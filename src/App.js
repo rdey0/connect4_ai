@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 import Header from './components/header.js'
+import Board from './components/board.js'
 class App extends React.Component{
   state = {
     num_rows: 6,
@@ -21,6 +22,7 @@ class App extends React.Component{
     return (
       <div className="App">
         <Header restartGame={this.restart_game}/>
+        <Board/>
       </div>
     );
   }
