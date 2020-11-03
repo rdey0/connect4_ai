@@ -22,7 +22,7 @@ class App extends React.Component{
     return (
       <div className="App">
         <Header restartGame={this.restart_game}/>
-        <Board/>
+        <Board gameState={this.state.board}/>
       </div>
     );
   }
