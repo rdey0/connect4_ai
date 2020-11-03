@@ -1,25 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import Header from './components/header.js'
+class App extends React.Component{
+  state = {
+    num_rows: 6,
+    num_cols: 7,
+    board: new Array(6).fill(0).map(()=> new Array(7).fill(0)),
+    is_player_turn: true,
+    ai: null
+  };
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  restart_game=()=> {
+    this.setState({
+      board: new Array(6).fill(0).map(()=> new Array(7).fill(0)),
+      is_player_turn: true
+    });
+  }
+
+  render(){ 
+    return (
+      <div className="App">
+        <Header restartGame={this.restart_game}/>
+      </div>
+    );
+  }
 }
 
 export default App;
