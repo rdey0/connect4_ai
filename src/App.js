@@ -3,7 +3,7 @@ import React from 'react';
 import Header from './components/header.js'
 import Board from './components/board.js'
 import STATES from './utils/enum.js'
-
+import {is_game_over} from './utils/helper.js'
 
 class App extends React.Component{
   state = {
@@ -19,20 +19,9 @@ class App extends React.Component{
   restart_game=()=> {
     this.setState({
       game_state: new Array(6).fill(0).map(()=> new Array(7).fill(0)),
-      is_player1_turn: true
+      is_player1_turn: true,
+      game_over: false
     });
-  }
-
-  is_game_over=(row, col)=> {
-    const num_rows = this.state.num_rows;
-    const num_cols = this.state.num_cols;
-    const num_to_win = this.state.num_to_win;
-    var num_consecutive = 1;
-    //check top left diagonal
-    for(var i = 1; row - i >= 0 && col - i >= 0; i++){
-      num_consecutive += 1
-      //if(num_consecutive)
-    } 
   }
 
   make_move=(column)=>{
@@ -41,8 +30,17 @@ class App extends React.Component{
     while(row < this.state.num_rows && board[row][column] === STATES.EMPTY)
       row++;
     board[row - 1][column] = this.state.curr_player;
-    var next_player = (this.state.curr_player === STATES.PLAYER1) ? STATES.PLAYER2 : STATES.PLAYER1;
-    this.setState({game_state: board, curr_player: next_player});
+    var game_over = (is_game_over(board, row-1, column, this.state.num_to_win, this.state.curr_player)); 
+    if(game_over){
+      this.setState({game_state: board, game_over: game_over}, ()=>{
+        console.log('state: ', this.state);
+      });
+    }else{
+      var next_player = (this.state.curr_player === STATES.PLAYER1) ? STATES.PLAYER2 : STATES.PLAYER1;
+      this.setState({game_state: board, curr_player: next_player}, ()=>{
+        console.log('state: ', this.state);
+      })
+    }
   }
 
   render(){ 
@@ -50,6 +48,9 @@ class App extends React.Component{
       <div className="App">
         <Header restartGame={this.restart_game}/>
         <Board gameState={this.state.game_state} makeMove={this.make_move}/>
+        {this.state.game_over &&
+          <div>Player {this.state.curr_player} Wins</div>
+        }
       </div>
     );
   }

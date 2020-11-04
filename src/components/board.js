@@ -1,19 +1,7 @@
 import React from 'react'
 import Column from './column.js'
 import STATES from '../utils/enum.js'
-
-function transpose(matrix){
-    console.log(matrix);
-    return matrix[0].map((col, c) => matrix.map((row, r) => matrix[r][c]));
-}
-
-function is_valid_move(matrix, column){
-    return matrix[0][column] === STATES.EMPTY;
-}
-
-function test (){
-    console.log('test');
-}
+import {transpose, is_valid_move} from '../utils/helper.js'
 
 export default class Board extends React.Component{
     constructor(props){
