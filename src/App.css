@@ -1,4 +1,4 @@
-/* Colors */
+/* COLOR VARIABLES */
 :root {
   --header: white;
   --background: #f1f3f8;
@@ -8,6 +8,12 @@
   --player2: #393b44;
 }
 
+/* SPACE AND SIZE VARIABLES */
+:root {
+  --board-radius: 30px;
+}
+
+/* PAGE GENERAL STYLES*/
 html, body, #root, .App {
   height: 100%;
 }
@@ -16,6 +22,7 @@ html, body, #root, .App {
   background-color: var(--background);
 }
 
+/* HEADER STYLES*/
 header {
   display: flex;
   align-items: baseline;
@@ -29,13 +36,14 @@ header .header-item {
   cursor: pointer;
 }
 
+/* BOARD STYLES*/
 .board-container {
   margin: 3em 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
-
+/* COLUMN STYLES*/
 .column-container {
   display: flex;
   flex-direction: column;
@@ -47,6 +55,14 @@ header .header-item {
   background-color: rgb(151, 151, 151);
 }
 
+.leftmost-column {
+  border-radius: var(--board-radius) 0 0 var(--board-radius);
+}
+
+.rightmost-column {
+  border-radius: 0 var(--board-radius) var(--board-radius) 0;
+}
+/* CELL STYLES*/
 .cell{
   height: 5em;
   width: 5em;

@@ -18,7 +18,8 @@ export default class Board extends React.Component{
             <div className='board-container'>
                 {
                     transpose(this.props.gameState).map((column, index)=>{
-                        return <Column key={index} id={index} values={column} handleUserAction={this.attempt_move}/>
+                        return <Column key={index} id={index} values={column} 
+                            numCols={this.props.gameState[0].length} handleUserAction={this.attempt_move}/>
                     })
                 }
             </div>
