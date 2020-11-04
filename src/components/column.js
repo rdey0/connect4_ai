@@ -5,7 +5,7 @@ export default function Column(props){
         <div className='column-container' onClick={()=>props.handleUserAction(props.id)}>
             {
                 props.values.map((val, row)=>{
-                    return <Cell key={'' + row + ' ' + props.id} id={'' + row + ' ' + props.id} value={val}/>
+                    return <Cell key={'' + row + ' ' + props.id} id={'' + row + ' ' + props.id} state={val}/>
                 })
             }
         </div>
