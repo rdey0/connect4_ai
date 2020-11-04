@@ -16,10 +16,16 @@ class App extends React.Component{
     game_over: false
   };
 
+  componentDidUpdate() {
+    if(this.state.curr_player === STATES.PLAYER2){
+      console.log('AI TURN');
+    }
+  }
+  
   restart_game=()=> {
     this.setState({
       game_state: new Array(6).fill(0).map(()=> new Array(7).fill(0)),
-      is_player1_turn: true,
+      curr_player: STATES.PLAYER1,
       game_over: false
     });
   }
@@ -30,9 +36,8 @@ class App extends React.Component{
     while(row < this.state.num_rows && board[row][column] === STATES.EMPTY)
       row++;
     board[row - 1][column] = this.state.curr_player;
-    var game_over = (is_game_over(board, row-1, column, this.state.num_to_win, this.state.curr_player)); 
-    if(game_over){
-      this.setState({game_state: board, game_over: game_over}, ()=>{
+    if(is_game_over(board, row-1, column, this.state.num_to_win, this.state.curr_player)){
+      this.setState({game_state: board, game_over: true}, ()=>{
         console.log('state: ', this.state);
       });
     }else{

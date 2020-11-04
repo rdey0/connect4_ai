@@ -12,15 +12,15 @@ export function is_valid_move(matrix, column) {
 function check_left_diagonal(board, row, col, num_rows, num_cols, num_to_win, curr_player){
     var num_consecutive = 1;
     //check top left diagonal
-    for(var i = 1; row - i >= 0 && col - i >= 0; i++){
-      if(board[row-i][col-i] == curr_player)
+    for(let i = 1; row - i >= 0 && col - i >= 0; i++){
+      if(board[row-i][col-i] === curr_player)
         num_consecutive += 1;
       else
         break;
     }
     //check bottom right diagonal
-    for(var i = 1; row + i < num_rows && col + i < num_cols; i++){
-      if(board[row+i][col+i] == curr_player)
+    for(let i = 1; row + i < num_rows && col + i < num_cols; i++){
+      if(board[row+i][col+i] === curr_player)
         num_consecutive += 1;
       else
         break;
@@ -32,7 +32,7 @@ function check_vertical(board, row, col, num_rows, num_to_win, curr_player){
     var num_consecutive = 1;
     //check bottom vertical
     for(var i = 1; row + i < num_rows; i++){
-        if(board[row+i][col] == curr_player)
+        if(board[row+i][col] === curr_player)
             num_consecutive += 1;
         else
             break;
@@ -43,15 +43,15 @@ function check_vertical(board, row, col, num_rows, num_to_win, curr_player){
 function check_right_diagonal(board, row, col, num_rows, num_cols, num_to_win, curr_player){
     var num_consecutive = 1;
     //check top right diagonal
-    for(var i = 1; row - i >= 0 && col + i < num_cols; i++){
-        if(board[row-i][col+i] == curr_player)
+    for(let i = 1; row - i >= 0 && col + i < num_cols; i++){
+        if(board[row-i][col+i] === curr_player)
             num_consecutive += 1;
         else
             break;
     }
     //check bottom left diagonal
-    for(var i = 1; row + i < num_rows && col - i >= 0; i++){
-        if(board[row+i][col-i] == curr_player)
+    for(let i = 1; row + i < num_rows && col - i >= 0; i++){
+        if(board[row+i][col-i] === curr_player)
             num_consecutive += 1;
         else
             break;
@@ -62,15 +62,15 @@ function check_right_diagonal(board, row, col, num_rows, num_cols, num_to_win, c
 function check_horizontal(board, row, col, num_cols, num_to_win, curr_player){
     var num_consecutive = 1;
     //check right horizontal
-    for(var i = 1; col + i < num_cols; i++){
-        if(board[row][col+i] == curr_player)
+    for(let i = 1; col + i < num_cols; i++){
+        if(board[row][col+i] === curr_player)
             num_consecutive += 1;
         else
             break;
     }
     //check left horizontal
-    for(var i = 1; col - i >= 0; i++){
-        if(board[row][col-i] == curr_player)
+    for(let i = 1; col - i >= 0; i++){
+        if(board[row][col-i] === curr_player)
             num_consecutive += 1;
         else
             break;
