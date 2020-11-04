@@ -23,6 +23,10 @@ header .header-item {
   cursor: pointer;
 }
 
+.column-container:hover {
+  background-color: gray;
+}
+
 .cell-container {
   height: 7em;
   width: 7em;
