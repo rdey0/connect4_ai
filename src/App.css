@@ -2,9 +2,10 @@
 :root {
   --header: white;
   --background: #f1f3f8;
-  --board: #d6e0f0;
+  --board: #c0d0eb;
+  --column-highlight:#b1c5e6;
   --empty: #f1f3f8;
-  --player1: #8d93ab;
+  --player1: #7f859b;
   --player2: #393b44;
 }
 
@@ -52,7 +53,7 @@ header .header-item {
 }
 
 .column-container:hover {
-  background-color: rgb(151, 151, 151);
+  background-color: var(--column-highlight);
 }
 
 .leftmost-column {
