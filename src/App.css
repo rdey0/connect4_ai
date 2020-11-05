@@ -117,7 +117,7 @@ header {
   height: var(--cell-height);
   width: var(--cell-width);
   border-radius: 100%;
-  margin: 1em;
+  margin: 2vh;
   background-color: var(--empty);
 }
 .cell{

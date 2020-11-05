@@ -4,11 +4,11 @@ import Confetti from 'react-dom-confetti';
 
 const config = {
   angle: "25",
-  spread: 320,
+  spread: 310,
   startVelocity: 40,
   elementCount: 100,
-  dragFriction: 0.21,
-  duration: 3000,
+  dragFriction: 0.23,
+  duration: 2200,
   stagger: 15,
   width: "10px",
   height: "10px",
