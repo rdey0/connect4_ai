@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 import Header from './components/header.js'
 import Board from './components/board.js'
+import Banner from './components/banner.js'
 import {CELL_STATES, GAME_STATES} from './utils/enum.js'
 import {get_game_state} from './utils/helper.js'
 
@@ -50,10 +51,8 @@ class App extends React.Component{
     return (
       <div className="App">
         <Header restartGame={this.restart_game}/>
+        <Banner gameState={this.state.game_state} player={this.state.curr_player}/>
         <Board board={this.state.board} makeMove={this.make_move}/>
-        {this.state.game_over &&
-          <div>Player {this.state.curr_player} Wins</div>
-        }
       </div>
     );
   }
