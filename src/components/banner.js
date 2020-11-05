@@ -3,11 +3,11 @@ import {GAME_STATES} from '../utils/enum.js'
 import Confetti from 'react-dom-confetti';
 
 const config = {
-  angle: "25",
-  spread: 310,
-  startVelocity: 40,
+  angle: "360",
+  spread: 340,
+  startVelocity: 35,
   elementCount: 100,
-  dragFriction: 0.23,
+  dragFriction: 0.22,
   duration: 2200,
   stagger: 15,
   width: "10px",
