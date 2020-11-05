@@ -21,7 +21,7 @@ class App extends React.Component{
       console.log('AI TURN');
     }
   }
-  
+
   restart_game=()=> {
     this.setState({
       game_state: new Array(6).fill(0).map(()=> new Array(7).fill(0)),

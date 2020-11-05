@@ -11,10 +11,10 @@ export default class Header extends React.Component{
                     Connect 4
                 </div>
                 <div className='header-item'>
-                    Difficulty
+                    <div>Difficulty</div>
                 </div>
-                <div className='header-item' onClick={this.props.restartGame}>
-                    Restart
+                <div className='header-item header-button' onClick={this.props.restartGame}>
+                    <div>Restart</div>
                 </div>
             </header>
         );

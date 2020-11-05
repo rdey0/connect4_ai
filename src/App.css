@@ -1,7 +1,11 @@
 /* COLOR VARIABLES */
 :root {
   --header: white;
+  --header-text: #393b44;
+  --button-text: white;
   --background: #f1f3f8;
+  --button: #393b44;
+  --button-highlight: #474b55;
   --board: #c0d0eb;
   --column-highlight:#b1c5e6;
   --empty: #f1f3f8;
@@ -12,6 +16,7 @@
 /* SPACE AND SIZE VARIABLES */
 :root {
   --board-radius: 30px;
+  --header-height: 3.5em;
 }
 
 /* PAGE GENERAL STYLES*/
@@ -25,16 +30,38 @@ html, body, #root, .App {
 
 /* HEADER STYLES*/
 header {
+  height: var(--header-height);
   display: flex;
   align-items: baseline;
   background-color: var(--header);
+  font-weight: bold;
+  box-shadow: 0 0px 35px -23px;
 }
+
 #header-title {
   font-size: 2em;
+  margin: 0 1em;
+  color: var(--header-text);
 }
-header .header-item {
-  margin: 0 5em;
+
+.header-item {
+  margin: 0 1em;
   cursor: pointer;
+  height: 80%;
+  width: 8em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.header-button{
+  background-color: var(--button);
+  color: var(--button-text);
+}
+
+.header-button:hover {
+  background-color: var(--button-highlight);
 }
 
 /* BOARD STYLES*/
