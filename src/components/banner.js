@@ -19,9 +19,9 @@ const config = {
 function BannerContent(props){
     switch(props.gameState){
         case GAME_STATES.WIN:
-            return(<div className='message'> Player {props.player} Wins!</div>);
+            return(<div className='message banner-win-effect'> Player {props.player} Wins!</div>);
         case GAME_STATES.DRAW:
-            return(<div className='message'> Draw </div>);
+            return(<div className='message banner-draw-effect'> Draw </div>);
         default:
             return (null);
     }

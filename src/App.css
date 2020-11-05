@@ -18,10 +18,11 @@
 :root {
   --board-radius: 30px;
   --header-height: 3.5em;
+  --banner-font-size: 3em;
+  --banner-font-size-enlarged: 4em;
 }
 
 /* PAGE GENERAL STYLES*/
-
 
 html {
   background-color: var(--background);
@@ -72,13 +73,14 @@ header {
 }
 
 .message {
-  font-size: 3em;
+  font-size: var(--banner-font-size);
   font-weight: bold;
   color: var(--banner-text);
 }
 
 /* BOARD STYLES*/
 .board-container {
+  height: 100%;
   width: auto;
   display: flex;
   flex-direction: row;
@@ -106,11 +108,17 @@ header {
   border-radius: 0 var(--board-radius) var(--board-radius) 0;
 }
 /* CELL STYLES*/
-.cell{
+.cell-container {
   height: 5em;
   width: 5em;
   border-radius: 100%;
   margin: 1em;
+  background-color: var(--empty);
+}
+.cell{
+  height: 5em;
+  width: 5em;
+  border-radius: 100%;
 }
 
 .empty-cell {
@@ -123,4 +131,52 @@ header {
 
 .player2-cell {
   background-color: var(--player2);
+}
+
+/* SPECIAL EFFECTS */
+.banner-win-effect {
+  animation: fadeIn ease 1s, enlarge 1s;
+  -webkit-animation: fadeIn ease 1s, enlarge 1s;
+  -moz-animation: fadeIn ease 1s, enlarge 1s;
+}
+
+.banner-draw-effect {
+  animation: fadeIn ease 1s, shake 1s;
+  -webkit-animation: fadeIn ease 1s, shake 1s;
+  -moz-animation: fadeIn ease 1s, shake 1s;
+}
+
+.drop-token-effect {
+  animation: drop-token 0.5s;
+  -webkit-animation: drop-token 0.5s;
+  -moz-animation: drop-token 0.5s;
+}
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@keyframes shake{ 
+  0%{transform: translateX(0);} 
+  25%{transform: translateX(10px);} 
+  50%{transform: translateX(-10px);} 
+  100%{transform: translateX(0px);} 
+}
+
+@keyframes enlarge {
+  0%{font-size: var(--banner-font-size);}
+  50%{font-size: var(--banner-font-size-enlarged);}
+  100%{font-size: var(--banner-font-size);}
+}
+
+@keyframes drop-token {
+  0%{transform: translateY(-1000px)}
+  60%{transform: translateY(0px)}
+  90%{transform: translateY(-20px)}
+  100%{transform: translateY(0px)}
 }
