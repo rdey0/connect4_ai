@@ -9,7 +9,7 @@ const config = {
   elementCount: 100,
   dragFriction: 0.22,
   duration: 2200,
-  stagger: 15,
+  stagger: 10,
   width: "10px",
   height: "10px",
   perspective: "1000px",
