@@ -15,7 +15,7 @@ export default class Board extends React.Component{
 
     render(){
         return (
-            <div>
+            
             <div className='board-container'>
                 {
                     transpose(this.props.board).map((column, index)=>{
@@ -24,7 +24,7 @@ export default class Board extends React.Component{
                     })
                 }
             </div>
-            </div>
+            
         );
     }  
 }

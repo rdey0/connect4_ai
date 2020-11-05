@@ -16,16 +16,21 @@
 
 /* SPACE AND SIZE VARIABLES */
 :root {
-  --board-radius: 30px;
   --header-height: 3.5em;
   --banner-font-size: 3em;
   --banner-font-size-enlarged: 4em;
+  --board-radius: 30px;
+  --cell-height: 8vh;
+  --cell-width: 8vh;
 }
 
 /* PAGE GENERAL STYLES*/
-
 html {
   background-color: var(--background);
+}
+html, body, #root, .App {
+  
+  height: 100%;
 }
 
 /* HEADER STYLES*/
@@ -80,7 +85,7 @@ header {
 
 /* BOARD STYLES*/
 .board-container {
-  height: 100%;
+  /*height: var(--board-height);*/
   width: auto;
   display: flex;
   flex-direction: row;
@@ -109,15 +114,15 @@ header {
 }
 /* CELL STYLES*/
 .cell-container {
-  height: 5em;
-  width: 5em;
+  height: var(--cell-height);
+  width: var(--cell-width);
   border-radius: 100%;
   margin: 1em;
   background-color: var(--empty);
 }
 .cell{
-  height: 5em;
-  width: 5em;
+  height: var(--cell-height);
+  width: var(--cell-width);
   border-radius: 100%;
 }
 
@@ -135,9 +140,9 @@ header {
 
 /* SPECIAL EFFECTS */
 .banner-win-effect {
-  animation: fadeIn ease 1s, enlarge 1s;
-  -webkit-animation: fadeIn ease 1s, enlarge 1s;
-  -moz-animation: fadeIn ease 1s, enlarge 1s;
+  animation: fadeIn ease 1s, enlarge 1.5s;
+  -webkit-animation: fadeIn ease 1s, enlarge 1.5s;
+  -moz-animation: fadeIn ease 1s, enlarge 1.5s;
 }
 
 .banner-draw-effect {
@@ -147,9 +152,9 @@ header {
 }
 
 .drop-token-effect {
-  animation: drop-token 0.5s;
-  -webkit-animation: drop-token 0.5s;
-  -moz-animation: drop-token 0.5s;
+  animation: drop-token 0.65s;
+  -webkit-animation: drop-token 0.65s;
+  -moz-animation: drop-token 0.65s;
 }
 @keyframes fadeIn {
   0% {opacity:0;}
@@ -176,7 +181,9 @@ header {
 
 @keyframes drop-token {
   0%{transform: translateY(-1000px)}
-  60%{transform: translateY(0px)}
-  90%{transform: translateY(-20px)}
+  45%{transform: translateY(0px)} 
+  65%{transform: translateY(-19px)}
+  72%{transform: translateY(-20px)}
   100%{transform: translateY(0px)}
 }
+/* 20, 7, 28*/
