@@ -5,8 +5,8 @@ import Board from './components/board.js'
 import Banner from './components/banner.js'
 import {CELL_STATES, GAME_STATES} from './utils/enum.js'
 import {get_game_state} from './utils/helper.js'
-
-
+import MonteCarloAi from './ai/monte_carlo.js'
+var monte_carlo = new MonteCarloAi(500);
 class App extends React.Component{
   state = {
     num_rows: 6,
@@ -21,6 +21,8 @@ class App extends React.Component{
 
   componentDidUpdate() {
     if(this.state.curr_player === CELL_STATES.PLAYER2){
+      console.log(this.state.board);
+      var next_move = monte_carlo.get_next_move(this.state.board);
     }
   }
 
@@ -39,12 +41,14 @@ class App extends React.Component{
     while(row < this.state.num_rows && board[row][column] === CELL_STATES.EMPTY) row++;
     board[row - 1][column] = this.state.curr_player;
     var curr_game_state = get_game_state(board, row-1, column, this.state.num_to_win, this.state.curr_player);
-    console.log('Player ' + this.state.curr_player + ' ' + curr_game_state);
-    this.setState({board: board, game_state: curr_game_state});
+    //console.log('Player ' + this.state.curr_player + ' ' + curr_game_state);
+    
     if(curr_game_state === GAME_STATES.ONGOING){
       var next_player = (this.state.curr_player === CELL_STATES.PLAYER1) ? 
         CELL_STATES.PLAYER2 : CELL_STATES.PLAYER1;
-      this.setState({curr_player: next_player});
+      this.setState({board: board, game_state: curr_game_state, curr_player: next_player});
+    }else{
+      this.setState({board: board, game_state: curr_game_state});
     }
   }
 
