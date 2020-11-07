@@ -100,3 +100,19 @@ export function get_game_state(board, row, col, num_to_win, curr_player) {
         return GAME_STATES.DRAW;
     return GAME_STATES.ONGOING;
 }
+
+export function make_copy(board){
+    var copy = [];
+      for (var i = 0; i < board.length; i++)
+          copy[i] = board[i].slice();
+    return copy;
+}
+
+export function wait(ms) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log("Done waiting");
+            resolve(ms)
+        }, ms )
+    })
+}  
