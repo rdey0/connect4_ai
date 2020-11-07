@@ -12,6 +12,8 @@
   --empty: #f1f3f8;
   --player1: #7f859b;
   --player2: #393b44;
+  --option-selected: #393b44;
+  --option-hover: #4d4f5a;
 }
 
 /* SPACE AND SIZE VARIABLES */
@@ -68,6 +70,51 @@ header {
 .header-button:hover {
   background-color: var(--button-highlight);
 }
+
+
+/* SELECT BOX STYLES */
+.select-box-container {
+  width: 100%;
+  text-align: center;
+  color: var(--header-text);
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+.select-title {
+  width: 100%;
+  height: 100%;
+}
+.select-options {
+  width: 15em;
+  font-weight: normal;
+  background-color: white;
+  position: relative;
+  top: 1.7em;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.option {
+  padding: 1em;
+  border-radius: 5px;
+}
+/*
+.option:hover {
+  background-color: var(--option-hover);
+  color: white;
+}
+*/
+
+.option-selected {
+  background-color: var(--option-selected);
+  color: white;
+}
+
+
 /* BANNER STYLES */
 .banner-container{
   height: 7em;
