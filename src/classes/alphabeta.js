@@ -14,20 +14,17 @@ export default class AlphaBetaAi {
     }
 
     get_next_move(board) {
-        var depth = 8;
+        var depth = 9;
         var move_score = 0;
         var best_move = 0;
         var best_score = Number.MIN_SAFE_INTEGER;
         var alpha = Number.MIN_SAFE_INTEGER;
         var beta = Number.MAX_SAFE_INTEGER;
         this.board = board;
-
         var start_time = new Date().getTime();
         for(var i=0; i < this.board[0].length && !this.is_timeout(start_time); ++i){
-            //console.log('trying',i);
             if(this.can_make_move(i)){
                 var[row, col] = this.make_move(i, this.player_num);
-                //console.log('inital move', board);
                 move_score = this.min_value(depth-1, this.player_num, alpha, beta, row, col);
                 if(move_score >= best_score){
                     best_score = move_score;
@@ -43,25 +40,21 @@ export default class AlphaBetaAi {
             best_move = 0;
             while(!this.can_make_move(best_move))
                 best_move++;
-            //console.log('finding default move');
         }
         return best_move;
     }
 
 
     max_value(depth, player, alpha, beta, row, col) {
-        //console.log('max_value:','depth',depth,'player',player,'board',this.board);
         var best_score = Number.MIN_SAFE_INTEGER;
         var move_score;
         var game_state = get_game_state(this.board, row, col, this.num_to_win, player);
         if(depth == 0 || game_state !== GAME_STATES.ONGOING) {
-            var h = this.get_heuristic(this.player_num, game_state, player);
-            //console.log('max h:', h);
-            return h;
+            return this.get_heuristic(this.player_num, game_state, player);
         }else{
+            player = (player === CELL_STATES.PLAYER1) ? CELL_STATES.PLAYER2 : CELL_STATES.PLAYER1;
             for(var i=0; i < this.board[0].length; ++i){
                 if(this.can_make_move(i)){
-                    player = (player === CELL_STATES.PLAYER1) ? CELL_STATES.PLAYER2 : CELL_STATES.PLAYER1;
                     var[r,c] = this.make_move(i, player);
                     move_score = this.min_value(depth-1, player, alpha, beta, r, c);
                     if(move_score > best_score)
@@ -78,18 +71,15 @@ export default class AlphaBetaAi {
     }
 
     min_value(depth, player, alpha, beta, row, col) {
-        //console.log('min_value:','depth',depth,'player',player,'board',this.board);
         var best_score = Number.MAX_SAFE_INTEGER;
         var move_score;
         var game_state = get_game_state(this.board, row, col, this.num_to_win, player);
         if(depth == 0 || game_state !== GAME_STATES.ONGOING) {
-            var h = this.get_heuristic(this.board, this.player_num, game_state, player);
-            //console.log('min h:',h);
-            return h;
+            return this.get_heuristic(this.player_num, game_state, player);
         }else{
+            player = (player === CELL_STATES.PLAYER1) ? CELL_STATES.PLAYER2 : CELL_STATES.PLAYER1;
             for(var i=0; i < this.board[0].length; ++i){
                 if(this.can_make_move(i)){
-                    player = (player === CELL_STATES.PLAYER1) ? CELL_STATES.PLAYER2 : CELL_STATES.PLAYER1;
                     var[r,c] = this.make_move(i, player);
                     move_score = this.max_value(depth-1, player, alpha, beta, r, c);
                     if(move_score < best_score)
@@ -109,27 +99,23 @@ export default class AlphaBetaAi {
     get_heuristic(our_player, game_state, last_player) {
         if(game_state !== GAME_STATES.ONGOING)
             return (last_player === our_player) ? Number.MAX_SAFE_INTEGER : Number.MIN_SAFE_INTEGER;
-        
 
         var board_width = this.board[0].length;
         var board_height = this.board.length;
         var player1_score = 0;
         var player2_score = 0;
         var column_value = [1,2,3,4,3,2,1];
-
+        
         for(var i=0; i < board_width; i++){
             if(this.board[board_height - 1][i] == CELL_STATES.EMPY) continue;
             var height = board_height - this.get_column_height(i);
             for(var j = board_height - 1; j >= height; j--){
                 for(var x = -1; x <= 1; x++){
                     for(var y = -2; y <= 2; y++){
-                        //console.log('i:',i,'j:',j,'x:',x,'y:',y);
                         if(i + x < 0 || i + x >= board_width || i - x < 0 || i - x >= board_width ||
                             j + y < 0 || j + y >= board_height || j - y < 0 || j - y >= board_height){
-                            //console.log('continue');
                             continue;
                         }
-                        //console.log('otherwise');
 
                         if(this.board[j+y][i+x] === CELL_STATES.PLAYER1){
                             if(this.board[j-y][i-x] === CELL_STATES.PLAYER1) {
@@ -149,10 +135,32 @@ export default class AlphaBetaAi {
                 
             }
         }
-        //console.log('p1:',player1_score,'p2:',player2_score);
         return (this.player_num === CELL_STATES.PLAYER1) ?
             (player1_score - player2_score):(player2_score - player1_score);
 
+    }
+
+    opponent_can_win(last_player, our_player){
+        var curr_player = (last_player === CELL_STATES.PLAYER1) ? CELL_STATES.PLAYER2 : CELL_STATES.PLAYER1;
+        if(curr_player === our_player) return false;
+        for(var i = 0; i < this.board[0].length; i++){
+            if(this.can_make_move(i)){
+                if(this.is_winning_move(i, curr_player)) return true;
+            }
+        }
+        return false;
+    }
+
+    is_winning_move(move, curr_player){
+        if(this.can_make_move(move)){
+            var[r,c] = this.make_move(move, curr_player);
+            var game_state = get_game_state(this.board, r, c, this.num_to_win, curr_player);
+            this.unmake_move(move);
+            if(game_state === GAME_STATES.WIN){
+                return true
+            }
+                
+        }
     }
     
 

@@ -12,7 +12,7 @@ const config = {
   initial_num_cols: 7,
   initial_num_to_win: 4,
   ai_turn_delay: 100,
-  ai_timout: 1200
+  ai_timout: 1000
 }
 
 var monte_carlo = new MonteCarloAi(CELL_STATES.PLAYER2, 4, config.ai_timout);
@@ -46,7 +46,7 @@ class App extends React.Component{
   restart_game=()=> {
     this.setState({
       board: new Array(6).fill(0).map(()=> new Array(7).fill(0)),
-      curr_player: CELL_STATES.PLAYER1,
+      curr_player: CELL_STATES.PLAYER2,
       game_state: GAME_STATES.ONGOING,
       game_over: false
     });
