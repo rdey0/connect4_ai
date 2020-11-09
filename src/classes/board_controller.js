@@ -1,9 +1,10 @@
 import {CELL_STATES, GAME_STATES} from '../utils/enum.js'
 export default class BoardController {
-    constructor(num_rows, num_cols){
+    constructor(num_rows, num_cols, player){
         this.num_rows = num_rows;
         this.num_cols = num_cols;
         this.board = new Array(num_rows).fill(CELL_STATES.EMPTY).map(()=> new Array(num_cols).fill(CELL_STATES.EMPTY));
+        this.curr_player = player;
     }
 
     can_make_move(column) {

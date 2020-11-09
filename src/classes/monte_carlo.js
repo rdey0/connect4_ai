@@ -25,7 +25,9 @@ export default class MonteCarloAi {
         while(!this.is_timeout(start_time)){
             // get a random legal move and make it
             var move = this.get_random_move(board);
+            console.log('before',board);
             var [row, col] = this.make_move(move, board, this.player_num);
+            console.log('after',board);
             // simulate the rest of the game starting with the opponents turn
             var [outcome, last_player] = this.play_random_game(board, this.player_num, row, col);
             this.update_chosen_move(this.player_num, outcome, last_player, values, move)

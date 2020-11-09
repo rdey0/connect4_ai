@@ -24,8 +24,8 @@ export default class Select extends React.Component{
     }
     render() {
         return (
-            <div className='select-box-container'>
-                <div className='select-title' onClick={this.toggle_show_options}>{this.props.title}</div>
+            <div className='select-box-container' onClick={this.toggle_show_options}>
+                <div className='select-title'>{this.props.title}</div>
                 {this.state.show_options &&
                     <div className='select-options' onBlur={this.toggle_show_options}>
                         {

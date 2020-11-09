@@ -6,17 +6,17 @@ import Banner from './components/banner.js'
 import {CELL_STATES, GAME_STATES} from './utils/enum.js'
 import {get_game_state, make_copy, wait} from './utils/helper.js'
 import MonteCarloAi from './classes/monte_carlo.js'
-
+import AlphaBetaAi from './classes/alphabeta.js'
 const config = {
   initial_num_rows: 6,
   initial_num_cols: 7,
   initial_num_to_win: 4,
   ai_turn_delay: 100,
-  ai_timout: 700
+  ai_timout: 1200
 }
 
 var monte_carlo = new MonteCarloAi(CELL_STATES.PLAYER2, 4, config.ai_timout);
-
+var alpha_beta = new AlphaBetaAi(CELL_STATES.PLAYER2, 4, config.ai_timout);
 class App extends React.Component{
   state = {
     num_rows: config.initial_num_rows,
@@ -31,14 +31,14 @@ class App extends React.Component{
   };
 
   componentDidUpdate() {
-    if(this.state.curr_player === CELL_STATES.PLAYER2){
+    if(this.state.curr_player === CELL_STATES.PLAYER2 && this.state.game_state === GAME_STATES.ONGOING){
       this.get_ai_move();
     }
   }
 
   async get_ai_move() {
     await wait(config.ai_turn_delay);
-    var next_move = monte_carlo.get_next_move(make_copy(this.state.board));
+    var next_move = alpha_beta.get_next_move(make_copy(this.state.board));
     this.make_move(next_move);
     
   }
@@ -53,6 +53,8 @@ class App extends React.Component{
   }
 
   make_move=(column)=>{
+    if(this.state.game_state !== GAME_STATES.ONGOING) 
+      return;
     var board = this.state.board;
     var row = 0;
     while(row < this.state.num_rows && board[row][column] === CELL_STATES.EMPTY) row++;
