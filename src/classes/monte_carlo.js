@@ -13,6 +13,11 @@ export default class MonteCarloAi {
     }
 
     get_next_move(board) {
+        // make a move in the middle of the board if it's empty
+        var middle_column = (board[0].length - 1)/2;
+        if(board[board.length - 1][middle_column] === CELL_STATES.EMPTY)
+            return middle_column;
+            
         // Create value array and set all illegal moves to minimum value.
         var values = new Array(board[0].length);
         board[0].forEach((state,index) => {

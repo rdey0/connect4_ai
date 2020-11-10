@@ -6,21 +6,15 @@ import Banner from './components/banner.js'
 import {CELL_STATES, GAME_STATES} from './utils/enum.js'
 import {get_game_state, make_copy, wait} from './utils/helper.js'
 import MonteCarloAi from './classes/monte_carlo.js'
-import AlphaBetaAi from './classes/alphabeta.js'
-import MinimaxAi from './classes/minimax.js'
-import OmoriAi from './classes/omori.js'
+
 const config = {
   initial_num_rows: 6,
   initial_num_cols: 7,
   initial_num_to_win: 4,
   ai_turn_delay: 100,
-  ai_timout: 1000
+  ai_timeout: 1000
 }
 
-var monte_carlo = new MonteCarloAi(CELL_STATES.PLAYER2, 4, config.ai_timout);
-var alpha_beta = new AlphaBetaAi(CELL_STATES.PLAYER2, 4, config.ai_timout, 9);
-var minimax = new MinimaxAi(CELL_STATES.PLAYER2, 4, config.ai_timout, 5);
-var omori = new OmoriAi(CELL_STATES.PLAYER2, 4, config.ai_timout);
 class App extends React.Component{
   state = {
     num_rows: config.initial_num_rows,
@@ -28,7 +22,7 @@ class App extends React.Component{
     board: new Array(config.initial_num_rows).fill(CELL_STATES.EMPTY).map(()=> 
       new Array(config.initial_num_cols).fill(CELL_STATES.EMPTY)),
     curr_player: CELL_STATES.PLAYER1,
-    ai: null,
+    ai: new MonteCarloAi(CELL_STATES.PLAYER2, 4, 600),
     num_to_win: config.initial_num_to_win,
     game_state: GAME_STATES.ONGOING,
     game_over: false
@@ -42,7 +36,7 @@ class App extends React.Component{
 
   async get_ai_move() {
     await wait(config.ai_turn_delay);
-    var next_move = omori.get_next_move(make_copy(this.state.board));
+    var next_move = this.state.ai.get_next_move(make_copy(this.state.board));
     this.make_move(next_move);
     
   }
@@ -74,10 +68,16 @@ class App extends React.Component{
     }
   }
 
+  set_ai=(new_ai)=> {
+    this.setState({ai: new_ai}, ()=>{
+      console.log(this.state);
+    });
+  }
+
   render(){ 
     return (
       <div className="App">
-        <Header restartGame={this.restart_game}/>
+        <Header restartGame={this.restart_game} changeAi={this.set_ai}/>
         <Banner gameState={this.state.game_state} player={this.state.curr_player}/>
         <Board board={this.state.board} makeMove={this.make_move}/>
       </div>

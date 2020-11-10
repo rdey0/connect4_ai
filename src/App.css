@@ -10,10 +10,10 @@
   --board: #c0d0eb;
   --column-highlight:#b1c5e6;
   --empty: #f1f3f8;
-  --player1: #7f859b;
+  --player1: #5d84c4;
   --player2: #393b44;
   --option-selected: #393b44;
-  --option-hover: #4d4f5a;
+  --option-hover: #393b44e5;
 }
 
 /* SPACE AND SIZE VARIABLES */
@@ -102,14 +102,16 @@ header {
   padding: 1em;
   border-radius: 5px;
 }
-/*
+
 .option:hover {
   background-color: var(--option-hover);
   color: white;
 }
-*/
+
 
 .option-selected {
+  padding: 1em;
+  border-radius: 5px;
   background-color: var(--option-selected);
   color: white;
 }

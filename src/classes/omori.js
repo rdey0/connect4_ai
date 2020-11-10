@@ -2,6 +2,7 @@ import {CELL_STATES, GAME_STATES} from '../utils/enum.js'
 import {get_game_state} from '../utils/helper.js'
 import MonteCarloAi from './monte_carlo.js'
 import AlphaBetaAi from './alphabeta.js' 
+import MinimaxAi from './minimax.js'
 export default class OmoriAi {
     constructor(player_number, num_to_win, timeout) {
         this.timeout = timeout
@@ -16,16 +17,19 @@ export default class OmoriAi {
 
     get_next_move(board) {
         var percent_filled = this.get_percent_filled(board);
-        if(percent_filled <= 0.20){
-            var monte = new MonteCarloAi(this.player_num, this.num_to_win, this.timeout);
+        //Use monte carlo decision making if board is less than 20% full
+        if(percent_filled <= 0.25){
+            var monte = new MinimaxAi(this.player_num, this.num_to_win, this.timeout, 5);
             return monte.get_next_move(board);
         }else{
-            var depth = 7 + Math.floor(percent_filled * 10);
-            console.log('alpha_beta depth:', depth);
+            //Use alpha beta decision making and increase depth as board gets more full
+            var depth = 8;
+            console.log('alphabeta depth:', depth);
             var alpha_beta = new AlphaBetaAi(this.player_num, this.num_to_win, this.timeout, depth);
             return alpha_beta.get_next_move(board);
         }
     }
+    // Get the percent of filled cells in the board
     get_percent_filled(board) {
         var num_rows = board.length;
         var num_cols = board[0].length;
