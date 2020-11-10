@@ -173,6 +173,9 @@ header {
   height: var(--cell-height);
   width: var(--cell-width);
   border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .empty-cell {
@@ -187,7 +190,18 @@ header {
   background-color: var(--player2);
 }
 
+.cell-container img {
+  height: 70%;
+  width: 70%;
+}
+
 /* SPECIAL EFFECTS */
+.mark-winning-effect {
+  animation: expand-cross ease 2s;
+  -webkit-animation: expand-cross ease 2s;
+  -moz-animation: expand-cross ease 2s;
+}
+
 .banner-win-effect {
   animation: fadeIn ease 1s, enlarge 1.5s;
   -webkit-animation: fadeIn ease 1s, enlarge 1.5s;
@@ -234,5 +248,24 @@ header {
   65%{transform: translateY(-19px)}
   72%{transform: translateY(-20px)}
   100%{transform: translateY(0px)}
+}
+
+@keyframes expand-cross {
+  0%{
+    height: 0%;
+    width: 0%;
+  }
+  30%{
+    height: 0%;
+    width: 0%;
+  }
+  65% {
+    height: 90%;
+    width: 90%;
+  }
+  85%{
+    height: 70%;
+    width: 70%;
+  }
 }
 /* 20, 7, 28*/
