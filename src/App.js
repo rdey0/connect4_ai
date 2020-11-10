@@ -47,7 +47,8 @@ class App extends React.Component{
       board: new Array(6).fill(0).map(()=> new Array(7).fill(0)),
       curr_player: CELL_STATES.PLAYER2,
       game_state: GAME_STATES.ONGOING,
-      game_over: false
+      game_over: false,
+      winning_moves: []
     });
   }
 
@@ -94,7 +95,7 @@ class App extends React.Component{
       <div className="App">
         <Header restartGame={this.restart_game} changeAi={this.set_ai}/>
         <Banner gameState={this.state.game_state} player={this.state.curr_player}/>
-        <Board board={this.state.board} makeMove={this.make_move} winning_moves={this.state.winning_moves}/>
+        <Board board={this.state.board} makeMove={this.make_move} winningMoves={this.state.winning_moves}/>
       </div>
     );
   }

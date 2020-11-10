@@ -20,7 +20,8 @@ export default class Board extends React.Component{
                 {
                     transpose(this.props.board).map((column, index)=>{
                         return <Column key={index} id={index} values={column} 
-                            numCols={this.props.board[0].length} handleUserAction={this.attempt_move}/>
+                            numCols={this.props.board[0].length} handleUserAction={this.attempt_move} 
+                            winningMoves={this.props.winningMoves}/>
                     })
                 }
             </div>
