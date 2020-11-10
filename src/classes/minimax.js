@@ -1,7 +1,7 @@
 import {CELL_STATES, GAME_STATES} from '../utils/enum.js'
 import {get_game_state} from '../utils/helper.js'
 
-export default class AlphaBetaAi {
+export default class MinimaxAi {
     constructor(player_number, num_to_win, timeout, depth) {
         this.timeout = timeout
         this.chosen_move = 0;
@@ -19,14 +19,12 @@ export default class AlphaBetaAi {
         var move_score = 0;
         var best_move = 0;
         var best_score = Number.MIN_SAFE_INTEGER;
-        var alpha = Number.MIN_SAFE_INTEGER;
-        var beta = Number.MAX_SAFE_INTEGER;
         this.board = board;
         var start_time = new Date().getTime();
         for(var i=0; i < this.board[0].length && !this.is_timeout(start_time); ++i){
             if(this.can_make_move(i)){
                 var[row, col] = this.make_move(i, this.player_num);
-                move_score = this.min_value(depth-1, this.player_num, alpha, beta, row, col);
+                move_score = this.min_value(depth-1, this.player_num, row, col);
                 if(move_score >= best_score){
                     best_score = move_score;
                     best_move = i;
@@ -46,7 +44,7 @@ export default class AlphaBetaAi {
     }
 
 
-    max_value(depth, player, alpha, beta, row, col) {
+    max_value(depth, player, row, col) {
         var best_score = Number.MIN_SAFE_INTEGER;
         var move_score;
         var game_state = get_game_state(this.board, row, col, this.num_to_win, player);
@@ -57,21 +55,17 @@ export default class AlphaBetaAi {
             for(var i=0; i < this.board[0].length; ++i){
                 if(this.can_make_move(i)){
                     var[r,c] = this.make_move(i, player);
-                    move_score = this.min_value(depth-1, player, alpha, beta, r, c);
+                    move_score = this.min_value(depth-1, player, r, c);
                     if(move_score > best_score)
                         best_score = move_score;
                     this.unmake_move(i);
-                    if(best_score >= beta)
-                        return best_score;
-                    if(best_score > alpha)
-                        alpha = best_score;
                 }
             }
         }
         return best_score;
     }
 
-    min_value(depth, player, alpha, beta, row, col) {
+    min_value(depth, player, row, col) {
         var best_score = Number.MAX_SAFE_INTEGER;
         var move_score;
         var game_state = get_game_state(this.board, row, col, this.num_to_win, player);
@@ -82,14 +76,10 @@ export default class AlphaBetaAi {
             for(var i=0; i < this.board[0].length; ++i){
                 if(this.can_make_move(i)){
                     var[r,c] = this.make_move(i, player);
-                    move_score = this.max_value(depth-1, player, alpha, beta, r, c);
+                    move_score = this.max_value(depth-1, player, r, c);
                     if(move_score < best_score)
                         best_score = move_score;
                     this.unmake_move(i);
-                    if(best_score <= alpha)
-                        return best_score;
-                    if(best_score < beta)
-                        beta = best_score;
                 }
             }
         }

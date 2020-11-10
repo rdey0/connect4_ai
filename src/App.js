@@ -7,6 +7,8 @@ import {CELL_STATES, GAME_STATES} from './utils/enum.js'
 import {get_game_state, make_copy, wait} from './utils/helper.js'
 import MonteCarloAi from './classes/monte_carlo.js'
 import AlphaBetaAi from './classes/alphabeta.js'
+import MinimaxAi from './classes/minimax.js'
+import OmoriAi from './classes/omori.js'
 const config = {
   initial_num_rows: 6,
   initial_num_cols: 7,
@@ -16,7 +18,9 @@ const config = {
 }
 
 var monte_carlo = new MonteCarloAi(CELL_STATES.PLAYER2, 4, config.ai_timout);
-var alpha_beta = new AlphaBetaAi(CELL_STATES.PLAYER2, 4, config.ai_timout);
+var alpha_beta = new AlphaBetaAi(CELL_STATES.PLAYER2, 4, config.ai_timout, 9);
+var minimax = new MinimaxAi(CELL_STATES.PLAYER2, 4, config.ai_timout, 5);
+var omori = new OmoriAi(CELL_STATES.PLAYER2, 4, config.ai_timout);
 class App extends React.Component{
   state = {
     num_rows: config.initial_num_rows,
@@ -38,7 +42,7 @@ class App extends React.Component{
 
   async get_ai_move() {
     await wait(config.ai_turn_delay);
-    var next_move = alpha_beta.get_next_move(make_copy(this.state.board));
+    var next_move = omori.get_next_move(make_copy(this.state.board));
     this.make_move(next_move);
     
   }
