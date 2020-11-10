@@ -1,11 +1,11 @@
-import STATES from './enum.js'
+import {CELL_STATES, GAME_STATES} from './enum.js'
 
 export function transpose(matrix) {
     return matrix[0].map((col, c) => matrix.map((row, r) => matrix[r][c]));
 }
 
 export function is_valid_move(matrix, column) {
-    return matrix[0][column] === STATES.EMPTY;
+    return matrix[0][column] === CELL_STATES.EMPTY;
 }
 
 
@@ -78,11 +78,41 @@ function check_horizontal(board, row, col, num_cols, num_to_win, curr_player){
     return (num_consecutive >= num_to_win);
 }
 
-export function is_game_over(board, row, col, num_to_win, curr_player) {
+function board_is_full(matrix) {
+    for(let j = 0; j < matrix[0].length; ++j){
+        if(matrix[0][j] === CELL_STATES.EMPTY)
+            return false
+    }
+    return true
+}
+
+export function get_game_state(board, row, col, num_to_win, curr_player) {
     var num_rows = board.length;
     var num_cols = board[0].length;
-    return check_left_diagonal(board, row, col, num_rows, num_cols, num_to_win, curr_player) ||
+    var someone_won = (check_left_diagonal(board, row, col, num_rows, num_cols, num_to_win, curr_player) ||
         check_vertical(board, row, col, num_rows, num_to_win, curr_player) ||
         check_right_diagonal(board, row, col, num_rows, num_cols, num_to_win, curr_player)||
-        check_horizontal(board, row, col, num_cols, num_to_win, curr_player);
+        check_horizontal(board, row, col, num_cols, num_to_win, curr_player));
+
+    if(someone_won)
+        return GAME_STATES.WIN;
+    if(board_is_full(board))
+        return GAME_STATES.DRAW;
+    return GAME_STATES.ONGOING;
 }
+
+export function make_copy(board){
+    var copy = [];
+      for (var i = 0; i < board.length; i++)
+          copy[i] = board[i].slice();
+    return copy;
+}
+
+export function wait(ms) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log("Done waiting");
+            resolve(ms)
+        }, ms )
+    })
+}  
