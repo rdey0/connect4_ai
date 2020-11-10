@@ -4,7 +4,7 @@ import Header from './components/header.js'
 import Board from './components/board.js'
 import Banner from './components/banner.js'
 import {CELL_STATES, GAME_STATES} from './utils/enum.js'
-import {get_game_state, make_copy, wait} from './utils/helper.js'
+import {get_game_state, get_winning_move, make_copy, wait} from './utils/helper.js'
 import MonteCarloAi from './classes/monte_carlo.js'
 
 const config = {
@@ -21,6 +21,7 @@ class App extends React.Component{
     num_cols: config.initial_num_cols,
     board: new Array(config.initial_num_rows).fill(CELL_STATES.EMPTY).map(()=> 
       new Array(config.initial_num_cols).fill(CELL_STATES.EMPTY)),
+    winning_moves: [],
     curr_player: CELL_STATES.PLAYER1,
     ai: new MonteCarloAi(CELL_STATES.PLAYER2, 4, 600),
     num_to_win: config.initial_num_to_win,
@@ -58,13 +59,27 @@ class App extends React.Component{
     while(row < this.state.num_rows && board[row][column] === CELL_STATES.EMPTY) row++;
     board[row - 1][column] = this.state.curr_player;
     var curr_game_state = get_game_state(board, row-1, column, this.state.num_to_win, this.state.curr_player);
+    this.update_game_state(curr_game_state, board, row-1, column);
+  }
 
+  update_game_state=(curr_game_state, board, row, col)=> {
+    // switch to the next player if game hasn't ended
     if(curr_game_state === GAME_STATES.ONGOING){
       var next_player = (this.state.curr_player === CELL_STATES.PLAYER1) ? 
         CELL_STATES.PLAYER2 : CELL_STATES.PLAYER1;
       this.setState({board: board, game_state: curr_game_state, curr_player: next_player});
     }else{
-      this.setState({board: board, game_state: curr_game_state});
+      var winning_moves = [];
+      // assume someone has won or there was a draw
+      if(curr_game_state === GAME_STATES.WIN){
+        //get the winning moves and mark them on the board
+        winning_moves = get_winning_move(board, row, col, this.state.num_to_win, this.state.curr_player);
+      }
+      this.setState({
+        board: board, 
+        game_state: curr_game_state, 
+        winning_moves: winning_moves
+      });
     }
   }
 
@@ -79,7 +94,7 @@ class App extends React.Component{
       <div className="App">
         <Header restartGame={this.restart_game} changeAi={this.set_ai}/>
         <Banner gameState={this.state.game_state} player={this.state.curr_player}/>
-        <Board board={this.state.board} makeMove={this.make_move}/>
+        <Board board={this.state.board} makeMove={this.make_move} winning_moves={this.state.winning_moves}/>
       </div>
     );
   }

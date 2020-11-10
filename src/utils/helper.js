@@ -111,8 +111,154 @@ export function make_copy(board){
 export function wait(ms) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            console.log("Done waiting");
             resolve(ms)
         }, ms )
     })
-}  
+}
+
+export function get_winning_move(board, row, col, num_to_win, curr_player) {
+    var num_rows = board.length;
+    var num_cols = board[0].length;
+    var left_diagonal = get_left_diagonal(board, row, col, num_rows, num_cols, num_to_win, curr_player);
+    if(left_diagonal)
+        return left_diagonal;
+
+    var vertical = get_vertical(board, row, col, num_rows, num_to_win, curr_player);
+    if(vertical)
+        return vertical;
+
+    var right_diagonal = get_right_diagonal(board, row, col, num_rows, num_cols, num_to_win, curr_player);
+    if(right_diagonal)
+        return right_diagonal;
+
+    var horizontal = get_horizontal(board, row, col, num_cols, num_to_win, curr_player);
+    if(horizontal)
+        return horizontal;
+    //return null if there were no winning moves to be found
+    return null;
+}
+/*
+ * Returns the winning moves (array of [row, column] coordinate pairs) of the left diagonal if they exist.
+ * If there is no winning move, null is returned.
+ */
+function get_left_diagonal(board, row, col, num_rows, num_cols, num_to_win, curr_player){
+    var winning_moves = [[row,col]];
+    var num_consecutive = 1;
+    //check top left diagonal
+    for(let i = 1; row - i >= 0 && col - i >= 0; i++){
+        if(num_consecutive == num_to_win)
+            return winning_moves;
+        if(board[row-i][col-i] === curr_player){
+            num_consecutive += 1;
+            winning_moves.push([row-i,col-i])
+        }else{
+            break;
+        } 
+            
+    }
+
+    if(num_consecutive == num_to_win)
+        return winning_moves;
+
+    //check bottom right diagonal
+    for(let i = 1; row + i < num_rows && col + i < num_cols; i++){
+        if(num_consecutive == num_to_win)
+            return winning_moves;
+        if(board[row+i][col+i] === curr_player){
+            num_consecutive += 1;
+            winning_moves.push([row+i,col+i])
+        }else{
+            break;
+        }
+            
+    }
+
+    if(num_consecutive == num_to_win)
+        return winning_moves;
+    return null;
+}
+
+function get_vertical(board, row, col, num_rows, num_to_win, curr_player){
+    var winning_moves = [[row,col]];
+    var num_consecutive = 1;
+    //check bottom vertical
+    for(var i = 1; row + i < num_rows; i++){
+        if(num_consecutive == num_to_win)
+            return winning_moves;
+        if(board[row+i][col] === curr_player){
+            num_consecutive += 1;
+            winning_moves.push([row+i,col]);
+        }else{
+            break;
+        }
+            
+    }
+    if(num_consecutive == num_to_win)
+            return winning_moves;
+    return null;
+}
+
+function get_right_diagonal(board, row, col, num_rows, num_cols, num_to_win, curr_player){
+    var winning_moves = [[row,col]];
+    var num_consecutive = 1;
+    //check top right diagonal
+    for(let i = 1; row - i >= 0 && col + i < num_cols; i++){
+        if(num_consecutive == num_to_win)
+            return winning_moves;
+        if(board[row-i][col+i] === curr_player){
+            num_consecutive += 1;
+            winning_moves.push([row-i,col+i]);
+        }else{
+            break;
+        }  
+    }
+
+    if(num_consecutive == num_to_win)
+            return winning_moves;
+
+    //check bottom left diagonal
+    for(let i = 1; row + i < num_rows && col - i >= 0; i++){
+        if(num_consecutive == num_to_win)
+            return winning_moves;
+        if(board[row+i][col-i] === curr_player){
+            num_consecutive += 1;
+            winning_moves.push([row+i,col-i]);
+        }else
+            break;
+    }
+    if(num_consecutive == num_to_win)
+            return winning_moves;
+    return null;
+}
+
+function get_horizontal(board, row, col, num_cols, num_to_win, curr_player){
+    var winning_moves = [[row,col]];
+    var num_consecutive = 1;
+    //check right horizontal
+    for(let i = 1; col + i < num_cols; i++){
+        if(num_consecutive == num_to_win)
+            return winning_moves;
+        if(board[row][col+i] === curr_player){
+            num_consecutive += 1;
+            winning_moves.push([row,col+i]);
+        }else
+            break;
+    }
+
+    if(num_consecutive == num_to_win)
+            return winning_moves;
+
+    //check left horizontal
+    for(let i = 1; col - i >= 0; i++){
+        if(num_consecutive == num_to_win)
+            return winning_moves;
+        if(board[row][col-i] === curr_player){
+            num_consecutive += 1;
+            winning_moves.push([row,col-i]);
+        }else
+            break;
+    }
+    if(num_consecutive == num_to_win)
+            return winning_moves;
+    return null;
+}
