@@ -3,7 +3,7 @@ import Select from './select_box.js'
 import MonteCarloAi from '../classes/monte_carlo.js'
 import AlphaBetaAi from '../classes/alphabeta.js'
 import MinimaxAi from '../classes/minimax.js'
-import OmoriAi from '../classes/omori.js'
+import OmoriAi from '../classes/adh.js'
 import {CELL_STATES} from '../utils/enum.js'
 const ai_timeout = 1000;
 var monte_carlo = new MonteCarloAi(CELL_STATES.PLAYER2, 4, 500);
@@ -15,7 +15,7 @@ const ai_options = [
     {name: 'Monte Carlo (Normal)', value: monte_carlo},
     {name: 'Minimax (Normal)', value: minimax},
     {name: 'Alpha-Beta (Hard)', value: alpha_beta},
-    {name: 'Omori (Hard)', value: omori}
+    {name: 'Adaptive Depth Heuristic (Hard)', value: omori}
 ];
 export default class Header extends React.Component{
     constructor(props){
@@ -25,7 +25,7 @@ export default class Header extends React.Component{
         return (
             <header>
                 <div id='header-title'>
-                    Connect 4
+                    Connect 4 AI
                 </div>
                 <div className='header-item header-select'>
                     <Select title='AI Opponent' options={ai_options} handleChange={this.props.changeAi}/>

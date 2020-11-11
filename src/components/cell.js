@@ -1,6 +1,6 @@
 import React from 'react'
 import {CELL_STATES} from '../utils/enum.js'
-import player1_x from '../images/black-x.png'
+import player1_x from '../images/orange-x.png'
 import player2_x from '../images/blue-x.png'
 export default function Cell(props){
     return (

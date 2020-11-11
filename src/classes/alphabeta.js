@@ -22,7 +22,28 @@ export default class AlphaBetaAi {
         var alpha = Number.MIN_SAFE_INTEGER;
         var beta = Number.MAX_SAFE_INTEGER;
         this.board = board;
+        var opponent = (this.player_num === CELL_STATES.PLAYER1) ? CELL_STATES.PLAYER2 : CELL_STATES.PLAYER1;
         var start_time = new Date().getTime();
+
+        //if we can win in the next move, make the move
+        for(var i = 0; i < this.board[0].length; i++){
+            if(this.is_winning_move(i, this.player_num)){
+                console.log('ending game');
+                return i;
+            }
+                
+        }
+
+        //if our opponent can win in the next move, block the move
+        for(var i = 0; i < this.board[0].length; i++){
+            if(this.is_winning_move(i, opponent)){
+                console.log('blocking game ending threat');
+                return i;
+            }
+                
+        }
+
+        // use minimax with alpha beta pruning to decide on the next move
         for(var i=0; i < this.board[0].length && !this.is_timeout(start_time); ++i){
             if(this.can_make_move(i)){
                 var[row, col] = this.make_move(i, this.player_num);
@@ -34,7 +55,7 @@ export default class AlphaBetaAi {
                 this.unmake_move(i);
             }
             if(i==this.board[0].length-1)
-                console.log('finished simulation');
+                console.log('finished simulation, depth:',depth);
         }
 
         if(!this.can_make_move(best_move)) {
@@ -141,27 +162,15 @@ export default class AlphaBetaAi {
 
     }
 
-    opponent_can_win(last_player, our_player){
-        var curr_player = (last_player === CELL_STATES.PLAYER1) ? CELL_STATES.PLAYER2 : CELL_STATES.PLAYER1;
-        if(curr_player === our_player) return false;
-        for(var i = 0; i < this.board[0].length; i++){
-            if(this.can_make_move(i)){
-                if(this.is_winning_move(i, curr_player)) return true;
-            }
-        }
-        return false;
-    }
-
     is_winning_move(move, curr_player){
         if(this.can_make_move(move)){
             var[r,c] = this.make_move(move, curr_player);
             var game_state = get_game_state(this.board, r, c, this.num_to_win, curr_player);
             this.unmake_move(move);
-            if(game_state === GAME_STATES.WIN){
-                return true
-            }
-                
+            if(game_state === GAME_STATES.WIN)
+                return true       
         }
+        return false;
     }
     
 

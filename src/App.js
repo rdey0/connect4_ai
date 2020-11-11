@@ -22,6 +22,7 @@ class App extends React.Component{
     board: new Array(config.initial_num_rows).fill(CELL_STATES.EMPTY).map(()=> 
       new Array(config.initial_num_cols).fill(CELL_STATES.EMPTY)),
     winning_moves: [],
+    first_player: CELL_STATES.PLAYER1,
     curr_player: CELL_STATES.PLAYER1,
     ai: new MonteCarloAi(CELL_STATES.PLAYER2, 4, 500),
     ai_name: 'Monte Carlo',
@@ -44,9 +45,13 @@ class App extends React.Component{
   }
 
   restart_game=()=> {
+    var first_player = (this.state.first_player === CELL_STATES.PLAYER1) ? 
+      CELL_STATES.PLAYER2 : CELL_STATES.PLAYER1;
+
     this.setState({
       board: new Array(6).fill(0).map(()=> new Array(7).fill(0)),
-      curr_player: CELL_STATES.PLAYER2,
+      first_player: first_player,
+      curr_player: first_player,
       game_state: GAME_STATES.ONGOING,
       winning_moves: []
     });
@@ -94,7 +99,7 @@ class App extends React.Component{
           else
               return this.state.ai_name + ' ' + 'Wins!';
       case GAME_STATES.DRAW:
-          return 'DRAW';
+          return 'Draw';
       default:
           return '';
     }

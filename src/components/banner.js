@@ -26,7 +26,9 @@ function BannerContent(props){
         case GAME_STATES.DRAW:
             return(<div className='message banner-draw-effect'>{props.message}</div>);
         default:
-            return (null);
+            if(props.player === CELL_STATES.PLAYER1)
+                return(<div className='message reminder-effect'>Your Turn!</div>);
+            return(null);
     }
 }
 
