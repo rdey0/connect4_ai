@@ -52,6 +52,7 @@ export default class MinimaxAi {
             while(!this.can_make_move(best_move))
                 best_move++;
         }
+        while(!this.is_timeout(start_time)){}
         return best_move;
     }
 

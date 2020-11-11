@@ -5,7 +5,7 @@ class Select extends React.Component{
     constructor(props){
         super();
         this.state = {
-            selected_option: 0,
+            selected_option: 1,
             show_options: false
         }
     }
