@@ -113,7 +113,6 @@ class App extends React.Component{
     ai_name = ai_name.join(' ');
 
     this.setState({ai: ai_object, ai_name: ai_name}, ()=>{
-      console.log(this.state);
     });
   }
 

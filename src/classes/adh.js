@@ -1,5 +1,5 @@
 import {CELL_STATES} from '../utils/enum.js'
-import MonteCarloAi from './monte_carlo.js'
+//import MonteCarloAi from './monte_carlo.js'
 import AlphaBetaAi from './alphabeta.js' 
 export default class OmoriAi {
     constructor(player_number, num_to_win, timeout) {
@@ -19,8 +19,10 @@ export default class OmoriAi {
         var alpha_beta;
         //Use monte carlo decision making if board is less than 20% full
         if(percent_filled <= 0.25){
-            var monte = new MonteCarloAi(this.player_num, this.num_to_win, this.timeout);
-            return monte.get_next_move(board);
+             //Use alpha beta decision making and increase depth as board gets more full
+             depth = 8;
+             alpha_beta = new AlphaBetaAi(this.player_num, this.num_to_win, this.timeout, depth);
+             return alpha_beta.get_next_move(board);
         }else if(percent_filled <= 0.6){
             //Use alpha beta decision making and increase depth as board gets more full
             depth = 8;
