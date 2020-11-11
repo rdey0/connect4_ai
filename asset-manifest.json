@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/connect4_ai/static/css/main.d32bdc5f.chunk.css",
+    "main.js": "/connect4_ai/static/js/main.66d784ef.chunk.js",
+    "main.js.map": "/connect4_ai/static/js/main.66d784ef.chunk.js.map",
+    "runtime-main.js": "/connect4_ai/static/js/runtime-main.37d3271b.js",
+    "runtime-main.js.map": "/connect4_ai/static/js/runtime-main.37d3271b.js.map",
+    "static/js/2.a0272569.chunk.js": "/connect4_ai/static/js/2.a0272569.chunk.js",
+    "static/js/2.a0272569.chunk.js.map": "/connect4_ai/static/js/2.a0272569.chunk.js.map",
+    "static/js/3.457429c5.chunk.js": "/connect4_ai/static/js/3.457429c5.chunk.js",
+    "static/js/3.457429c5.chunk.js.map": "/connect4_ai/static/js/3.457429c5.chunk.js.map",
+    "index.html": "/connect4_ai/index.html",
+    "static/css/main.d32bdc5f.chunk.css.map": "/connect4_ai/static/css/main.d32bdc5f.chunk.css.map",
+    "static/js/2.a0272569.chunk.js.LICENSE.txt": "/connect4_ai/static/js/2.a0272569.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.37d3271b.js",
+    "static/js/2.a0272569.chunk.js",
+    "static/css/main.d32bdc5f.chunk.css",
+    "static/js/main.66d784ef.chunk.js"
+  ]
+}
