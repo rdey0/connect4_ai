@@ -28,8 +28,10 @@ export default class Header extends React.Component{
                     Connect 4 AI
                 </div>
                 <div className='header-item header-select'>
-                    <Select title='AI Opponent' options={ai_options} handleChange={this.props.changeAi}/>
+                    <Select title='Choose AI Opponent' options={ai_options} handleChange={this.props.changeAi}/>
                 </div>
+                
+                
                 <div className='header-item header-button' onClick={this.props.restartGame}>
                     <div>Restart</div>
                 </div>

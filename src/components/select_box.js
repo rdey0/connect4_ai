@@ -1,6 +1,7 @@
 import React from 'react';
-
-export default class Select extends React.Component{
+import onClickOutside from 'react-onclickoutside';
+import triangle from '../images/triangle.png'
+class Select extends React.Component{
     
     constructor(props){
         super();
@@ -8,6 +9,12 @@ export default class Select extends React.Component{
             selected_option: 0,
             show_options: false
         }
+    }
+
+    handleClickOutside = () => {
+        //close options menu if a click outside the select box is detected
+        if(this.state.show_options)
+            this.setState({show_options: false});
     }
 
     toggle_show_options=()=> {
@@ -48,3 +55,5 @@ export default class Select extends React.Component{
         )
     }
 }
+
+export default onClickOutside(Select);
