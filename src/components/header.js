@@ -6,7 +6,7 @@ import MinimaxAi from '../classes/minimax.js'
 import OmoriAi from '../classes/omori.js'
 import {CELL_STATES} from '../utils/enum.js'
 const ai_timeout = 1000;
-var monte_carlo = new MonteCarloAi(CELL_STATES.PLAYER2, 4, ai_timeout);
+var monte_carlo = new MonteCarloAi(CELL_STATES.PLAYER2, 4, 500);
 var alpha_beta = new AlphaBetaAi(CELL_STATES.PLAYER2, 4, ai_timeout, 8);
 var minimax = new MinimaxAi(CELL_STATES.PLAYER2, 4, ai_timeout, 5);
 var omori = new OmoriAi(CELL_STATES.PLAYER2, 4, ai_timeout);

@@ -16,7 +16,7 @@ export default class Select extends React.Component{
 
     select_option=(index)=> {
         this.setState({selected_option: index});
-        this.props.handleChange(this.props.options[index].value);
+        this.props.handleChange(this.props.options[index]);
         this.toggle_show_options();
     }
 

@@ -23,10 +23,11 @@ class App extends React.Component{
       new Array(config.initial_num_cols).fill(CELL_STATES.EMPTY)),
     winning_moves: [],
     curr_player: CELL_STATES.PLAYER1,
-    ai: new MonteCarloAi(CELL_STATES.PLAYER2, 4, 600),
+    ai: new MonteCarloAi(CELL_STATES.PLAYER2, 4, 500),
+    ai_name: 'Monte Carlo',
     num_to_win: config.initial_num_to_win,
     game_state: GAME_STATES.ONGOING,
-    game_over: false
+    message:''
   };
 
   componentDidUpdate() {
@@ -47,7 +48,6 @@ class App extends React.Component{
       board: new Array(6).fill(0).map(()=> new Array(7).fill(0)),
       curr_player: CELL_STATES.PLAYER2,
       game_state: GAME_STATES.ONGOING,
-      game_over: false,
       winning_moves: []
     });
   }
@@ -76,16 +76,37 @@ class App extends React.Component{
         //get the winning moves and mark them on the board
         winning_moves = get_winning_move(board, row, col, this.state.num_to_win, this.state.curr_player);
       }
+
       this.setState({
         board: board, 
         game_state: curr_game_state, 
-        winning_moves: winning_moves
+        winning_moves: winning_moves,
+        message: this.set_banner_message(curr_game_state)
       });
     }
   }
 
+  set_banner_message=(game_state)=>{
+    switch(game_state){
+      case GAME_STATES.WIN:
+          if(this.state.curr_player === CELL_STATES.PLAYER1)
+              return 'You Win!';
+          else
+              return this.state.ai_name + ' ' + 'Wins!';
+      case GAME_STATES.DRAW:
+          return 'DRAW';
+      default:
+          return '';
+    }
+  }
+
   set_ai=(new_ai)=> {
-    this.setState({ai: new_ai}, ()=>{
+    var ai_object = new_ai.value;
+    var ai_name = new_ai.name.split(' ');
+    ai_name.pop();
+    ai_name = ai_name.join(' ');
+
+    this.setState({ai: ai_object, ai_name: ai_name}, ()=>{
       console.log(this.state);
     });
   }
@@ -94,8 +115,9 @@ class App extends React.Component{
     return (
       <div className="App">
         <Header restartGame={this.restart_game} changeAi={this.set_ai}/>
-        <Banner gameState={this.state.game_state} player={this.state.curr_player}/>
-        <Board board={this.state.board} makeMove={this.make_move} winningMoves={this.state.winning_moves}/>
+        <Banner gameState={this.state.game_state} player={this.state.curr_player} message={this.state.message}/>
+        <Board board={this.state.board} makeMove={this.make_move} 
+          winningMoves={this.state.winning_moves} player={this.state.curr_player}/>
       </div>
     );
   }

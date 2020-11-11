@@ -9,7 +9,7 @@ export default class Board extends React.Component{
     }
 
     attempt_move=(column)=> {
-        if(is_valid_move(this.props.board, column))
+        if(this.props.player === CELL_STATES.PLAYER1 && is_valid_move(this.props.board, column))
             this.props.makeMove(column);
     }
 

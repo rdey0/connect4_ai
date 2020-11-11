@@ -4,6 +4,7 @@
   --header-text: #393b44;
   --button-text: white;
   --banner-text: #393b44;
+  --banner-lose: rgb(212, 96, 96);
   --background: #f1f3f8;
   --button: #393b44;
   --button-highlight: #474b55;
@@ -132,6 +133,12 @@ header {
   color: var(--banner-text);
 }
 
+.message-ai {
+  font-size: var(--banner-font-size);
+  font-weight: bold;
+  color: var(--banner-lose);
+}
+
 /* BOARD STYLES*/
 .board-container {
   /*height: var(--board-height);*/
@@ -197,15 +204,21 @@ header {
 
 /* SPECIAL EFFECTS */
 .mark-winning-effect {
-  animation: expand-cross ease 2s;
-  -webkit-animation: expand-cross ease 2s;
-  -moz-animation: expand-cross ease 2s;
+  animation: expand-cross ease 1.5s;
+  -webkit-animation: expand-cross ease 1.5s;
+  -moz-animation: expand-cross ease 1.5s;
 }
 
 .banner-win-effect {
   animation: fadeIn ease 1s, enlarge 1.5s;
   -webkit-animation: fadeIn ease 1s, enlarge 1.5s;
   -moz-animation: fadeIn ease 1s, enlarge 1.5s;
+}
+
+.banner-ai-win-effect {
+  animation: fadeIn ease 1s, shake 1s;
+  -webkit-animation: fadeIn ease 1s, shake 1s;
+  -moz-animation: fadeIn ease 1s, shake 1s;
 }
 
 .banner-draw-effect {

@@ -1,5 +1,5 @@
 import React from 'react'
-import {GAME_STATES} from '../utils/enum.js'
+import {CELL_STATES, GAME_STATES} from '../utils/enum.js'
 import Confetti from 'react-dom-confetti';
 
 const config = {
@@ -19,9 +19,12 @@ const config = {
 function BannerContent(props){
     switch(props.gameState){
         case GAME_STATES.WIN:
-            return(<div className='message banner-win-effect'> Player {props.player} Wins!</div>);
+            if(props.player === CELL_STATES.PLAYER1)
+                return(<div className='message banner-win-effect'>{props.message}</div>);
+            else
+                return(<div className='message-ai banner-ai-win-effect'> {props.message}</div>);
         case GAME_STATES.DRAW:
-            return(<div className='message banner-draw-effect'> Draw </div>);
+            return(<div className='message banner-draw-effect'>{props.message}</div>);
         default:
             return (null);
     }
@@ -30,8 +33,8 @@ function BannerContent(props){
 export default function Banner(props){
     return(
         <div className='banner-container'>
-            <Confetti active={ props.gameState === GAME_STATES.WIN} config={ config }/>
-            <BannerContent gameState={props.gameState} player={props.player}/>
+            <Confetti active={ props.gameState === GAME_STATES.WIN && props.player === CELL_STATES.PLAYER1} config={ config }/>
+            <BannerContent gameState={props.gameState} player={props.player} message={props.message}/>
         </div>
     )
 }
