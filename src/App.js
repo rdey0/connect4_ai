@@ -96,8 +96,9 @@ class App extends React.Component{
       case GAME_STATES.WIN:
           if(this.state.curr_player === CELL_STATES.PLAYER1)
               return 'You Win!';
-          else
-              return this.state.ai_name + ' ' + 'Wins!';
+          else{
+            return `${this.state.ai_name} Wins!`;
+          }
       case GAME_STATES.DRAW:
           return 'Draw';
       default:

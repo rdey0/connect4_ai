@@ -26,21 +26,15 @@ export default class AlphaBetaAi {
         var start_time = new Date().getTime();
 
         //if we can win in the next move, make the move
-        for(var i = 0; i < this.board[0].length; i++){
-            if(this.is_winning_move(i, this.player_num)){
-                console.log('ending game');
-                return i;
-            }
-                
+        for(let i = 0; i < this.board[0].length; i++){
+            if(this.is_winning_move(i, this.player_num))
+                return i;     
         }
 
         //if our opponent can win in the next move, block the move
-        for(var i = 0; i < this.board[0].length; i++){
-            if(this.is_winning_move(i, opponent)){
-                console.log('blocking game ending threat');
-                return i;
-            }
-                
+        for(let i = 0; i < this.board[0].length; i++){
+            if(this.is_winning_move(i, opponent))
+                return i;  
         }
 
         // use minimax with alpha beta pruning to decide on the next move
@@ -54,8 +48,6 @@ export default class AlphaBetaAi {
                 }
                 this.unmake_move(i);
             }
-            if(i==this.board[0].length-1)
-                console.log('finished simulation, depth:',depth);
         }
 
         if(!this.can_make_move(best_move)) {
@@ -71,7 +63,7 @@ export default class AlphaBetaAi {
         var best_score = Number.MIN_SAFE_INTEGER;
         var move_score;
         var game_state = get_game_state(this.board, row, col, this.num_to_win, player);
-        if(depth == 0 || game_state !== GAME_STATES.ONGOING) {
+        if(depth === 0 || game_state !== GAME_STATES.ONGOING) {
             return this.get_heuristic(this.player_num, game_state, player);
         }else{
             player = (player === CELL_STATES.PLAYER1) ? CELL_STATES.PLAYER2 : CELL_STATES.PLAYER1;
@@ -96,7 +88,7 @@ export default class AlphaBetaAi {
         var best_score = Number.MAX_SAFE_INTEGER;
         var move_score;
         var game_state = get_game_state(this.board, row, col, this.num_to_win, player);
-        if(depth == 0 || game_state !== GAME_STATES.ONGOING) {
+        if(depth === 0 || game_state !== GAME_STATES.ONGOING) {
             return this.get_heuristic(this.player_num, game_state, player);
         }else{
             player = (player === CELL_STATES.PLAYER1) ? CELL_STATES.PLAYER2 : CELL_STATES.PLAYER1;
@@ -129,7 +121,7 @@ export default class AlphaBetaAi {
         var column_value = [1,2,3,4,3,2,1];
         
         for(var i=0; i < board_width; i++){
-            if(this.board[board_height - 1][i] == CELL_STATES.EMPY) continue;
+            if(this.board[board_height - 1][i] === CELL_STATES.EMPTY) continue;
             var height = board_height - this.get_column_height(i);
             for(var j = board_height - 1; j >= height; j--){
                 for(var x = -1; x <= 1; x++){

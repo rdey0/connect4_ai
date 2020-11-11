@@ -25,7 +25,6 @@ export default class MonteCarloAi {
         });
 
         //keep updating the value of each possible move until time runs out
-        var num_games_played = 0;
         var start_time = new Date().getTime();
         while(!this.is_timeout(start_time)){
             // get a random legal move and make it
@@ -36,10 +35,7 @@ export default class MonteCarloAi {
             this.update_chosen_move(this.player_num, outcome, last_player, values, move)
             //unmake our initial move
             this.unmake_move(move, board);
-            //console.log('values',values);
-            num_games_played++;
         }
-        console.log('num games simulated:', num_games_played);
         const next_move = this.chosen_move;
         this.chosen_move = 0;
         return next_move;
@@ -76,7 +72,7 @@ export default class MonteCarloAi {
 
     update_chosen_move(our_player, outcome, last_player, values, move) {
         // Dont change anything if the oucome is a draw
-        if(outcome == GAME_STATES.DRAW)
+        if(outcome === GAME_STATES.DRAW)
             return;
         
         // add a point if we made the winning move, subtract one otherwise
@@ -95,7 +91,7 @@ export default class MonteCarloAi {
      */ 
     get_random_move(board) {
         var legal_moves = [];
-        //console.log('get random move board',board);
+
         board[0].forEach((state,index) => {
             if(state === CELL_STATES.EMPTY) legal_moves.push(index);
         });

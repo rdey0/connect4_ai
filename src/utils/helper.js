@@ -146,7 +146,7 @@ function get_left_diagonal(board, row, col, num_rows, num_cols, num_to_win, curr
     var num_consecutive = 1;
     //check top left diagonal
     for(let i = 1; row - i >= 0 && col - i >= 0; i++){
-        if(num_consecutive == num_to_win)
+        if(num_consecutive === num_to_win)
             return winning_moves;
         if(board[row-i][col-i] === curr_player){
             num_consecutive += 1;
@@ -157,12 +157,12 @@ function get_left_diagonal(board, row, col, num_rows, num_cols, num_to_win, curr
             
     }
 
-    if(num_consecutive == num_to_win)
+    if(num_consecutive === num_to_win)
         return winning_moves;
 
     //check bottom right diagonal
     for(let i = 1; row + i < num_rows && col + i < num_cols; i++){
-        if(num_consecutive == num_to_win)
+        if(num_consecutive === num_to_win)
             return winning_moves;
         if(board[row+i][col+i] === curr_player){
             num_consecutive += 1;
@@ -173,7 +173,7 @@ function get_left_diagonal(board, row, col, num_rows, num_cols, num_to_win, curr
             
     }
 
-    if(num_consecutive == num_to_win)
+    if(num_consecutive === num_to_win)
         return winning_moves;
     return null;
 }
@@ -183,7 +183,7 @@ function get_vertical(board, row, col, num_rows, num_to_win, curr_player){
     var num_consecutive = 1;
     //check bottom vertical
     for(var i = 1; row + i < num_rows; i++){
-        if(num_consecutive == num_to_win)
+        if(num_consecutive === num_to_win)
             return winning_moves;
         if(board[row+i][col] === curr_player){
             num_consecutive += 1;
@@ -193,7 +193,7 @@ function get_vertical(board, row, col, num_rows, num_to_win, curr_player){
         }
             
     }
-    if(num_consecutive == num_to_win)
+    if(num_consecutive === num_to_win)
             return winning_moves;
     return null;
 }
@@ -203,7 +203,7 @@ function get_right_diagonal(board, row, col, num_rows, num_cols, num_to_win, cur
     var num_consecutive = 1;
     //check top right diagonal
     for(let i = 1; row - i >= 0 && col + i < num_cols; i++){
-        if(num_consecutive == num_to_win)
+        if(num_consecutive === num_to_win)
             return winning_moves;
         if(board[row-i][col+i] === curr_player){
             num_consecutive += 1;
@@ -213,12 +213,12 @@ function get_right_diagonal(board, row, col, num_rows, num_cols, num_to_win, cur
         }  
     }
 
-    if(num_consecutive == num_to_win)
+    if(num_consecutive === num_to_win)
             return winning_moves;
 
     //check bottom left diagonal
     for(let i = 1; row + i < num_rows && col - i >= 0; i++){
-        if(num_consecutive == num_to_win)
+        if(num_consecutive === num_to_win)
             return winning_moves;
         if(board[row+i][col-i] === curr_player){
             num_consecutive += 1;
@@ -226,7 +226,7 @@ function get_right_diagonal(board, row, col, num_rows, num_cols, num_to_win, cur
         }else
             break;
     }
-    if(num_consecutive == num_to_win)
+    if(num_consecutive === num_to_win)
             return winning_moves;
     return null;
 }
@@ -236,7 +236,7 @@ function get_horizontal(board, row, col, num_cols, num_to_win, curr_player){
     var num_consecutive = 1;
     //check right horizontal
     for(let i = 1; col + i < num_cols; i++){
-        if(num_consecutive == num_to_win)
+        if(num_consecutive === num_to_win)
             return winning_moves;
         if(board[row][col+i] === curr_player){
             num_consecutive += 1;
@@ -245,12 +245,12 @@ function get_horizontal(board, row, col, num_cols, num_to_win, curr_player){
             break;
     }
 
-    if(num_consecutive == num_to_win)
+    if(num_consecutive === num_to_win)
             return winning_moves;
 
     //check left horizontal
     for(let i = 1; col - i >= 0; i++){
-        if(num_consecutive == num_to_win)
+        if(num_consecutive === num_to_win)
             return winning_moves;
         if(board[row][col-i] === curr_player){
             num_consecutive += 1;
@@ -258,7 +258,7 @@ function get_horizontal(board, row, col, num_cols, num_to_win, curr_player){
         }else
             break;
     }
-    if(num_consecutive == num_to_win)
+    if(num_consecutive === num_to_win)
             return winning_moves;
     return null;
 }

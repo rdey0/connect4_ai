@@ -12,7 +12,7 @@ function get_col_class(col, num_cols){
 function get_cell_class(row, col, winning_moves){
     for(var i = 0; i < winning_moves.length; ++i){
         var[curr_row, curr_col] = winning_moves[i];
-        if(row == curr_row && col == curr_col)
+        if(row === curr_row && col === curr_col)
             return true;
     }
     return false;

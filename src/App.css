@@ -7,7 +7,7 @@
   --banner-lose: rgb(212, 96, 96);
   --background: #f1f3f8;
   --button: #393b44;
-  --button-highlight: rgb(209, 92, 92);
+  --button-highlight:rgb(214, 108, 108);
   --board: #c0d0eb;
   --column-highlight:#b1c5e6;
   --empty: #f1f3f8;
@@ -53,7 +53,7 @@ header {
 }
 
 .header-item {
-  margin: 0 3.5em;
+  margin: 0 3em;
   cursor: pointer;
   height: 80%;
   width: 8em;
@@ -66,6 +66,7 @@ header {
 .header-select {
   width: 10em;
 }
+
 .header-button{
   background-color: var(--button);
   color: var(--button-text);
@@ -106,8 +107,8 @@ header {
   width: 17em;
   font-weight: normal;
   background-color: white;
-  position: relative;
-  top: 1.7em;
+  position: absolute;
+  top: 4.2em;
   display: flex;
   flex-direction: column;
   text-align: left;

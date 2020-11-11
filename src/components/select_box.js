@@ -1,6 +1,5 @@
 import React from 'react';
 import onClickOutside from 'react-onclickoutside';
-import triangle from '../images/triangle.png'
 class Select extends React.Component{
     
     constructor(props){
@@ -29,7 +28,7 @@ class Select extends React.Component{
     }
 
     is_selected=(index)=> {
-        return(index == this.state.selected_option)
+        return(index === this.state.selected_option)
     }
     render() {
         return (
