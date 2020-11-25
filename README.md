@@ -26,7 +26,7 @@ Connect 4 is a two player, turn based game played on a 7x6 board. Each turn, a p
 
 ### Guide
 
-1. Select your Opponent: Click on "Choose AI Opponent" to select the AI algorithm you want to play against. You can change the opponent algorithm at any point in the game without resetting the board.
+1. **Select your Opponent**: Click on "Choose AI Opponent" to select the AI algorithm you want to play against. You can change the opponent algorithm at any point in the game without resetting the board.
 
 <br/>
 
@@ -36,7 +36,7 @@ Connect 4 is a two player, turn based game played on a 7x6 board. Each turn, a p
 
 <br/>
 
-2. Make a Move: Hover over a column and click to make a move.
+2. **Make a Move**: Hover over a column and click to make a move.
 
 <br/>
 
@@ -46,7 +46,7 @@ Connect 4 is a two player, turn based game played on a 7x6 board. Each turn, a p
 
 <br/>
 
-3. Restart the Game: You can reset the board at any point in the game by clicking the "Restart" button. The first player will be alternated on each board reset
+3. **Restart the Game**: You can reset the board at any point in the game by clicking the "Restart" button. The first player will be alternated on each board reset
 
 <br/>
 
