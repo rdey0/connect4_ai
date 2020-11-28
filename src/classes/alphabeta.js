@@ -132,7 +132,13 @@ export default class AlphaBetaAi {
         return best_score;
     }
 
-    
+    /*
+     * Return a metric representing how favorable the current board state is
+     * @our_player: An int representing the AI player (1 or 2)
+     * @game_state: A 2D array representing the current state of the board
+     * @last_player: The last player to make a move
+     * Return: int representing how favorable the current board state is (larger is better)
+     */
     get_heuristic(our_player, game_state, last_player) {
         if(game_state !== GAME_STATES.ONGOING)
             return (last_player === our_player) ? Number.MAX_SAFE_INTEGER : Number.MIN_SAFE_INTEGER;
