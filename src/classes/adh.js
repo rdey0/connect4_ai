@@ -1,23 +1,22 @@
 import {CELL_STATES} from '../utils/enum.js'
-//import MonteCarloAi from './monte_carlo.js'
 import AlphaBetaAi from './alphabeta.js' 
+/*
+ * This AI is a modification of the Alpha-Beta algorithm. It increases 
+ * it's search depth as the game continues.
+ */
 export default class OmoriAi {
     constructor(player_number, num_to_win, timeout) {
         this.timeout = timeout
         this.chosen_move = 0;
         this.player_num = player_number;
         this.num_to_win = num_to_win;
-        this.num_won = 0;
-        this.num_draw = 0;
-        this.num_lost = 0;
-        this.board = null;
     }
 
     get_next_move(board) {
         var percent_filled = this.get_percent_filled(board);
         var depth = 0;
         var alpha_beta;
-        //Use monte carlo decision making if board is less than 20% full
+        //Use alpha beta with depth 8 until board is 60% full
         if(percent_filled <= 0.25){
              //Use alpha beta decision making and increase depth as board gets more full
              depth = 8;
@@ -35,7 +34,12 @@ export default class OmoriAi {
             return alpha_beta.get_next_move(board);
         }
     }
-    // Get the percent of filled cells in the board
+
+    /* 
+     * Get the percent of filled cells in the board
+     * @board: A 2D int array representing the current game board
+     * Return: a float in the range [0,1]
+     */
     get_percent_filled(board) {
         var num_rows = board.length;
         var num_cols = board[0].length;
@@ -48,7 +52,6 @@ export default class OmoriAi {
                     num_filled++;
             }
         }
-
         return parseFloat(num_filled) / total;
     }
 }
