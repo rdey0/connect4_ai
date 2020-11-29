@@ -56,7 +56,14 @@ export default class MinimaxAi {
         return best_move;
     }
 
-
+    /*
+     * Get the best possible score for your move
+     * @depth: An int representing how many more moves in advance to survey
+     * @player: The current player (1 or 2)
+     * @row: The row where a move has been made
+     * @col: the column where a move has been made
+     * Return: The AI's best possible score
+     */
     max_value(depth, player, row, col) {
         var best_score = Number.MIN_SAFE_INTEGER;
         var move_score;
@@ -78,6 +85,14 @@ export default class MinimaxAi {
         return best_score;
     }
 
+    /*
+     * Get the worst possible score for your opponent
+     * @depth: An int representing how many more moves in advance to survey
+     * @player: The current player (1 or 2)
+     * @row: The row where a move has been made
+     * @col: the column where a move has been made
+     * Return: The opponents worst possible score
+     */
     min_value(depth, player, row, col) {
         var best_score = Number.MAX_SAFE_INTEGER;
         var move_score;
@@ -99,7 +114,13 @@ export default class MinimaxAi {
         return best_score;
     }
 
-    
+    /*
+     * Return a metric representing how favorable the current board state is
+     * @our_player: An int representing the AI player (1 or 2)
+     * @game_state: A 2D array representing the current state of the board
+     * @last_player: The last player to make a move
+     * Return: int representing how favorable the current board state is (larger is better)
+     */
     get_heuristic(our_player, game_state, last_player) {
         if(game_state !== GAME_STATES.ONGOING)
             return (last_player === our_player) ? Number.MAX_SAFE_INTEGER : Number.MIN_SAFE_INTEGER;
@@ -155,6 +176,12 @@ export default class MinimaxAi {
         return false;
     }
 
+    /*
+     * Determine if a move will result in a win
+     * @move: An int representing the column to make a move in
+     * @curr_player: The current player (1 or 2)
+     * Return: True if the move results in a win, False otherwise
+     */
     is_winning_move(move, curr_player){
         if(this.can_make_move(move)){
             var[r,c] = this.make_move(move, curr_player);
@@ -166,7 +193,11 @@ export default class MinimaxAi {
         return false;
     }
     
-
+    /*
+     * get the number of tokens in a column
+     * @col: An int representing the column number
+     * Return: The int number of tokens in a column
+     */
     get_column_height(col) {
         var height = 0;
         for(var i = this.board.length-1; i >= 0; --i){
@@ -178,13 +209,20 @@ export default class MinimaxAi {
     }
 
     /* 
-     * checks if the AI has run out of time to make a move
+     * Checks if the AI has run out of time to make a move
+     * @start_time: int time in miliseconds
+     * Return: True if AI has exceeded time limit, False otherwise
      */
     is_timeout(start_time) {
         return (new Date().getTime() - start_time >= this.timeout);
     }
 
-
+    /*
+     * Makes a move on the board at the specified column
+     * @column: An int representing the column to make a move
+     * @curr_player: The player making the move (1 or 2)
+     * Return: int array of the form [row,col] representing where the move was made
+     */
     make_move(column, curr_player) {
         var row = 0;
         while( row < this.board.length && this.board[row][column] === CELL_STATES.EMPTY) ++row;
@@ -193,14 +231,23 @@ export default class MinimaxAi {
          
     }
 
-    unmake_move(column) {
+    /*
+     * Unmakes a move at a specified column
+     * @col: An int representing the column
+     * Return: Nothing is returned
+     */
+    unmake_move(col) {
         var row = 0;
-        while( row < this.board.length && this.board[row][column] === CELL_STATES.EMPTY) ++row;
-        this.board[row][column] = CELL_STATES.EMPTY;
+        while( row < this.board.length && this.board[row][col] === CELL_STATES.EMPTY) ++row;
+        this.board[row][col] = CELL_STATES.EMPTY;
     }
-    
-    can_make_move(column) {
-        return this.board[0][column] === CELL_STATES.EMPTY;
+    /*
+     * Determines if a move can be made at a specified column
+     * @col: An int representing the column
+     * Return: True if a move can be made in the column, false otherwise
+     */
+    can_make_move(col) {
+        return this.board[0][col] === CELL_STATES.EMPTY;
     }
 
 }
