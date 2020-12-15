@@ -1,15 +1,13 @@
 import {CELL_STATES} from '../utils/enum.js'
-import AlphaBetaAi from './alphabeta.js' 
+import AlphaBetaAi from './alphabeta.js'
+import AiModule from './ai_module.js' 
 /*
  * This AI is a modification of the Alpha-Beta algorithm. It increases 
  * it's search depth as the game continues.
  */
-export default class OmoriAi {
+export default class OmoriAi extends AiModule{
     constructor(player_number, num_to_win, timeout) {
-        this.timeout = timeout
-        this.chosen_move = 0;
-        this.player_num = player_number;
-        this.num_to_win = num_to_win;
+        super(player_number, num_to_win, timeout);
     }
 
     get_next_move(board) {
