@@ -6,7 +6,11 @@ import AiModule from './ai_module.js'
  * player can win within the next move
  */
 export default class RandomAi extends AiModule{
-
+    /*
+     * Get the next move by randomly selecting a valid move
+     * @board: 2D int array representing state of the game
+     * Return: A legal move (int from 0-6)
+     */
     get_next_move(board) {
         this.board = board;
         var opponent = (this.player_num === CELL_STATES.PLAYER1) ? CELL_STATES.PLAYER2 : CELL_STATES.PLAYER1;

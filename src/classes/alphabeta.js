@@ -13,7 +13,12 @@ export default class AlphaBetaAi extends AiModule{
         super(player_number, num_to_win, timeout);
         this.depth = depth;
     }
-
+    
+    /*
+     * Get the next move using the alphabeta pruning algorithm
+     * @board: 2D int array representing state of the game
+     * Return: A legal move (int from 0-6)
+     */
     get_next_move(board) {
         var depth = this.depth;
         var move_score = 0;

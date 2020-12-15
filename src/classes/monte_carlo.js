@@ -1,17 +1,17 @@
 import {CELL_STATES, GAME_STATES} from '../utils/enum.js'
 import {get_game_state} from '../utils/helper.js'
-
-export default class MonteCarloAi {
-    constructor(player_number, num_to_win, timeout) {
-        this.timeout = timeout
-        this.chosen_move = 0;
-        this.player_num = player_number;
-        this.num_to_win = num_to_win;
-        this.num_won = 0;
-        this.num_draw = 0;
-        this.num_lost = 0;
-    }
-
+import AiModule from './ai_module.js'
+/*
+ * MonteCarloAi simulates random games to completion starting from the 
+ * current board state and will select the move which resulted in the 
+ * most wins and fewest losses
+ */
+export default class MonteCarloAi extends AiModule{
+    /*
+     * Get the next move using the Monte Carlo random game algorithm
+     * @board: 2D int array representing state of the game
+     * Return: A legal move (int from 0-6)
+     */
     get_next_move(board) {
         // make a move in the middle of the board if it's empty
         var middle_column = (board[0].length - 1)/2;
@@ -42,15 +42,13 @@ export default class MonteCarloAi {
     }
 
     /* 
-     * checks if the AI has run out of time to make a move
-     */
-    is_timeout(start_time) {
-        return (new Date().getTime() - start_time >= this.timeout);
-    }
-
-    /* 
      * Simulate a game where players make moves at random and then return 
      * the winner
+     * @board: 2D int Array representing the state of the game
+     * @curr_player: The current player (1 or 2)
+     * @row: int representing the row value of the first move
+     * @col: int representing the column value of the first move
+     * Return: Array [game state, player number]
      */ 
     play_random_game(board, curr_player, row, col) {
         // create a copy of the current board so we don't permanently modify anything
@@ -69,7 +67,14 @@ export default class MonteCarloAi {
         return [game_state, curr_player];
 
     }
-
+    /*
+     * Update our chosen move to the current best move
+     * @our_player: int representing the AI player (1 or 2)
+     * @outcome: a GAME_STATE enum representing the outcome of the game
+     * @last_player: int representing the player to end the game (1 or 2)
+     * @values: int array representing the score of each move (higher the better)
+     * @move: int last move that was made (1-7)
+     */
     update_chosen_move(our_player, outcome, last_player, values, move) {
         // Dont change anything if the oucome is a draw
         if(outcome === GAME_STATES.DRAW)
@@ -88,6 +93,8 @@ export default class MonteCarloAi {
     /* 
      * constantly updates this.move with the current best move
      * until terminate is set to true
+     * @board: 2D int Array representing the state of the game
+     * Return: int representing the column of a random legal move
      */ 
     get_random_move(board) {
         var legal_moves = [];

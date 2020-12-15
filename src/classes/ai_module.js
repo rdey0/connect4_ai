@@ -18,7 +18,7 @@ export default class AiModule{
     /*
      * Gets the AI move
      * @board: 2D-Array representing the state of the game
-     * Return: A legal move (int from 0-7)
+     * Return: A legal move (int from 0-6)
      */
     get_next_move(board){
         var best_move = 0;

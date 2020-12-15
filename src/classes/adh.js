@@ -6,7 +6,11 @@ import AiModule from './ai_module.js'
  * it's search depth as the game continues.
  */
 export default class OmoriAi extends AiModule{
-    
+    /*
+     * Get the next move using the alphabeta algorithm at progressive depths
+     * @board: 2D int array representing state of the game
+     * Return: int chosen move (1-7)
+     */
     get_next_move(board) {
         var percent_filled = this.get_percent_filled(board);
         var depth = 0;
