@@ -7,7 +7,7 @@ import {CELL_STATES, GAME_STATES} from './utils/enum.js'
 import {get_game_state, get_winning_move, make_copy, wait} from './utils/helper.js'
 import MonteCarloAi from './classes/monte_carlo.js'
 
-//config object used to set game parameters
+//config object used to adjust game parameters
 const config = {
   initial_num_rows: 6,
   initial_num_cols: 7,
@@ -119,7 +119,6 @@ class App extends React.Component{
     var ai_name = new_ai.name.split(' ');
     ai_name.pop();
     ai_name = ai_name.join(' ');
-
     this.setState({ai: ai_object, ai_name: ai_name}, ()=>{
     });
   }

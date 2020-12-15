@@ -29,7 +29,7 @@ class Select extends React.Component{
         this.toggle_show_options();
     }
 
-    //Determin if an option is the currently selected option
+    //Determine if an option is the currently selected option
     is_selected=(index)=> {
         return(index === this.state.selected_option)
     }

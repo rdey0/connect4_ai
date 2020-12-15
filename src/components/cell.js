@@ -5,6 +5,7 @@ import player2_x from '../images/blue-x.png'
 export default function Cell(props){
     return (
         <div>
+            {/*return empty cell */}
             {props.state === CELL_STATES.EMPTY &&
                 <div className='cell-container'>
                     <div className='cell empty-cell' id={props.id}>
@@ -12,6 +13,7 @@ export default function Cell(props){
                 </div>
             }
 
+            {/*return player 1 cell*/}
             {props.state === CELL_STATES.PLAYER1 &&
                 <div className='cell-container'>
                     <div className='cell player1-cell drop-token-effect' id={props.id}>
@@ -20,6 +22,7 @@ export default function Cell(props){
                 </div>
             }
 
+            {/*return player 2 cell*/}
             {props.state === CELL_STATES.PLAYER2 &&
                 <div className='cell-container'>
                     <div className='cell player2-cell drop-token-effect' id={props.id}>
