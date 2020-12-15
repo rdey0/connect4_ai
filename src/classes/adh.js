@@ -6,10 +6,7 @@ import AiModule from './ai_module.js'
  * it's search depth as the game continues.
  */
 export default class OmoriAi extends AiModule{
-    constructor(player_number, num_to_win, timeout) {
-        super(player_number, num_to_win, timeout);
-    }
-
+    
     get_next_move(board) {
         var percent_filled = this.get_percent_filled(board);
         var depth = 0;
