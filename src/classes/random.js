@@ -1,18 +1,7 @@
-import {CELL_STATES, GAME_STATES} from '../utils/enum.js'
-import {get_game_state} from '../utils/helper.js'
+import {CELL_STATES} from '../utils/enum.js'
+import AiModule from './ai_module.js'
 
-export default class RandomAi {
-    constructor(player_number, num_to_win, timeout, depth) {
-        this.timeout = timeout
-        this.chosen_move = 0;
-        this.player_num = player_number;
-        this.num_to_win = num_to_win;
-        this.num_won = 0;
-        this.num_draw = 0;
-        this.num_lost = 0;
-        this.board = null;
-        this.depth = depth;
-    }
+export default class RandomAi extends AiModule{
 
     get_next_move(board) {
         this.board = board;
@@ -57,43 +46,4 @@ export default class RandomAi {
         //return a random legal move
         return legal_moves[Math.floor(Math.random() * legal_moves.length)];
     }
-
-    is_winning_move(move, curr_player){
-        if(this.can_make_move(move)){
-            var[r,c] = this.make_move(move, curr_player);
-            var game_state = get_game_state(this.board, r, c, this.num_to_win, curr_player);
-            this.unmake_move(move);
-            if(game_state === GAME_STATES.WIN)
-                return true       
-        }
-        return false;
-    }
-    
-
-    /* 
-     * checks if the AI has run out of time to make a move
-     */
-    is_timeout(start_time) {
-        return (new Date().getTime() - start_time >= this.timeout);
-    }
-
-
-    make_move(column, curr_player) {
-        var row = 0;
-        while( row < this.board.length && this.board[row][column] === CELL_STATES.EMPTY) ++row;
-        this.board[row - 1][column] = curr_player;
-        return [row - 1, column];
-         
-    }
-
-    unmake_move(column) {
-        var row = 0;
-        while( row < this.board.length && this.board[row][column] === CELL_STATES.EMPTY) ++row;
-        this.board[row][column] = CELL_STATES.EMPTY;
-    }
-    
-    can_make_move(column) {
-        return this.board[0][column] === CELL_STATES.EMPTY;
-    }
-
 }
