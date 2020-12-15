@@ -1,13 +1,18 @@
-import {CELL_STATES} from '../utils/enum.js'
-// Defines the methods and fields required for a basic AI opponent
+import {CELL_STATES, GAME_STATES} from '../utils/enum.js'
+import {get_game_state} from '../utils/helper.js'
+
+/*
+ * Defines the methods and fields required for a basic AI opponent
+ * This class serves as the parent class from which all other AI
+ * opponent classes will be extended from
+ */
 export default class AiModule{
-    constructor(player_number, num_to_win, timeout, depth) {
+    constructor(player_number, num_to_win, timeout) {
         this.timeout = timeout
         this.chosen_move = 0;
         this.player_num = player_number;
         this.num_to_win = num_to_win;
         this.board = null;
-        this.depth = depth;
     }
 
     /*
@@ -22,7 +27,7 @@ export default class AiModule{
             best_move++;
         return best_move;
     }
-    
+
     /*
      * Determine if a move will result in a win
      * @move: An int representing the column to make a move in
