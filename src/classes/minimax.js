@@ -1,16 +1,10 @@
 import {CELL_STATES, GAME_STATES} from '../utils/enum.js'
 import {get_game_state} from '../utils/helper.js'
+import AiModule from './ai_module.js'
 
-export default class MinimaxAi {
+export default class MinimaxAi extends AiModule{
     constructor(player_number, num_to_win, timeout, depth) {
-        this.timeout = timeout
-        this.chosen_move = 0;
-        this.player_num = player_number;
-        this.num_to_win = num_to_win;
-        this.num_won = 0;
-        this.num_draw = 0;
-        this.num_lost = 0;
-        this.board = null;
+        super(player_number, num_to_win, timeout);
         this.depth = depth;
     }
 
@@ -34,7 +28,7 @@ export default class MinimaxAi {
             if(this.is_winning_move(i, opponent))
                 return i;  
         }
-
+        
         for(var i=0; i < this.board[0].length && !this.is_timeout(start_time); ++i){
             if(this.can_make_move(i)){
                 var[row, col] = this.make_move(i, this.player_num);
@@ -136,12 +130,13 @@ export default class MinimaxAi {
             var height = board_height - this.get_column_height(i);
             for(var j = board_height - 1; j >= height; j--){
                 for(var x = -1; x <= 1; x++){
+                    //check surrounding area with a padding of 1 cell horizontally and 2 cells vertically
                     for(var y = -2; y <= 2; y++){
                         if(i + x < 0 || i + x >= board_width || i - x < 0 || i - x >= board_width ||
                             j + y < 0 || j + y >= board_height || j - y < 0 || j - y >= board_height){
                             continue;
                         }
-
+                        //calculate the utility of the cell for the respective player
                         if(this.board[j+y][i+x] === CELL_STATES.PLAYER1){
                             if(this.board[j-y][i-x] === CELL_STATES.PLAYER1) {
                                 player1_score += 2 * column_value[i];
@@ -163,91 +158,6 @@ export default class MinimaxAi {
         return (this.player_num === CELL_STATES.PLAYER1) ?
             (player1_score - player2_score):(player2_score - player1_score);
 
-    }
-
-    opponent_can_win(last_player, our_player){
-        var curr_player = (last_player === CELL_STATES.PLAYER1) ? CELL_STATES.PLAYER2 : CELL_STATES.PLAYER1;
-        if(curr_player === our_player) return false;
-        for(var i = 0; i < this.board[0].length; i++){
-            if(this.can_make_move(i)){
-                if(this.is_winning_move(i, curr_player)) return true;
-            }
-        }
-        return false;
-    }
-
-    /*
-     * Determine if a move will result in a win
-     * @move: An int representing the column to make a move in
-     * @curr_player: The current player (1 or 2)
-     * Return: True if the move results in a win, False otherwise
-     */
-    is_winning_move(move, curr_player){
-        if(this.can_make_move(move)){
-            var[r,c] = this.make_move(move, curr_player);
-            var game_state = get_game_state(this.board, r, c, this.num_to_win, curr_player);
-            this.unmake_move(move);
-            if(game_state === GAME_STATES.WIN)
-                return true       
-        }
-        return false;
-    }
-    
-    /*
-     * get the number of tokens in a column
-     * @col: An int representing the column number
-     * Return: The int number of tokens in a column
-     */
-    get_column_height(col) {
-        var height = 0;
-        for(var i = this.board.length-1; i >= 0; --i){
-            if(this.board[i][col] === CELL_STATES.EMPTY)
-                break;
-            height++;
-        }
-        return height;
-    }
-
-    /* 
-     * Checks if the AI has run out of time to make a move
-     * @start_time: int time in miliseconds
-     * Return: True if AI has exceeded time limit, False otherwise
-     */
-    is_timeout(start_time) {
-        return (new Date().getTime() - start_time >= this.timeout);
-    }
-
-    /*
-     * Makes a move on the board at the specified column
-     * @column: An int representing the column to make a move
-     * @curr_player: The player making the move (1 or 2)
-     * Return: int array of the form [row,col] representing where the move was made
-     */
-    make_move(column, curr_player) {
-        var row = 0;
-        while( row < this.board.length && this.board[row][column] === CELL_STATES.EMPTY) ++row;
-        this.board[row - 1][column] = curr_player;
-        return [row - 1, column];
-         
-    }
-
-    /*
-     * Unmakes a move at a specified column
-     * @col: An int representing the column
-     * Return: Nothing is returned
-     */
-    unmake_move(col) {
-        var row = 0;
-        while( row < this.board.length && this.board[row][col] === CELL_STATES.EMPTY) ++row;
-        this.board[row][col] = CELL_STATES.EMPTY;
-    }
-    /*
-     * Determines if a move can be made at a specified column
-     * @col: An int representing the column
-     * Return: True if a move can be made in the column, false otherwise
-     */
-    can_make_move(col) {
-        return this.board[0][col] === CELL_STATES.EMPTY;
     }
 
 }

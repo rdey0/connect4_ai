@@ -71,15 +71,15 @@ export default class AiModule{
 
     /*
      * Makes a move on the board at the specified column
-     * @column: An int representing the column to make a move
+     * @col: An int representing the column to make a move
      * @curr_player: The player making the move (1 or 2)
      * Return: int array of the form [row,col] representing where the move was made
      */
-    make_move(column, curr_player) {
+    make_move(col, curr_player) {
         var row = 0;
-        while( row < this.board.length && this.board[row][column] === CELL_STATES.EMPTY) ++row;
-        this.board[row - 1][column] = curr_player;
-        return [row - 1, column];
+        while( row < this.board.length && this.board[row][col] === CELL_STATES.EMPTY) ++row;
+        this.board[row - 1][col] = curr_player;
+        return [row - 1, col];
          
     }
 
@@ -99,7 +99,7 @@ export default class AiModule{
      * @col: An int representing the column
      * Return: True if a move can be made in the column, false otherwise
      */
-    can_make_move(column) {
-        return this.board[0][column] === CELL_STATES.EMPTY;
+    can_make_move(col) {
+        return this.board[0][col] === CELL_STATES.EMPTY;
     }
 }
