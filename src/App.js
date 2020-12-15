@@ -7,6 +7,7 @@ import {CELL_STATES, GAME_STATES} from './utils/enum.js'
 import {get_game_state, get_winning_move, make_copy, wait} from './utils/helper.js'
 import MonteCarloAi from './classes/monte_carlo.js'
 
+//config object used to set game parameters
 const config = {
   initial_num_rows: 6,
   initial_num_cols: 7,
@@ -31,12 +32,14 @@ class App extends React.Component{
     message:''
   };
 
+  //Have AI opponent make a move if game is ongoing and its AI's turn
   componentDidUpdate() {
     if(this.state.curr_player === CELL_STATES.PLAYER2 && this.state.game_state === GAME_STATES.ONGOING){
       this.get_ai_move();
     }
   }
 
+  //Have AI opponent asynchronously get move
   async get_ai_move() {
     await wait(config.ai_turn_delay);
     var next_move = this.state.ai.get_next_move(make_copy(this.state.board));
@@ -44,6 +47,7 @@ class App extends React.Component{
     
   }
 
+  //Reset game board and game state values
   restart_game=()=> {
     var first_player = (this.state.first_player === CELL_STATES.PLAYER1) ? 
       CELL_STATES.PLAYER2 : CELL_STATES.PLAYER1;
@@ -57,6 +61,7 @@ class App extends React.Component{
     });
   }
 
+  //Update the game board at the specified column
   make_move=(column)=>{
     if(this.state.game_state !== GAME_STATES.ONGOING) 
       return;
@@ -68,6 +73,7 @@ class App extends React.Component{
     this.update_game_state(curr_game_state, board, row-1, column);
   }
 
+  //Handle updating game state values after a player makes a move
   update_game_state=(curr_game_state, board, row, col)=> {
     // switch to the next player if game hasn't ended
     if(curr_game_state === GAME_STATES.ONGOING){
@@ -91,6 +97,7 @@ class App extends React.Component{
     }
   }
 
+  //Set banner message according to game state
   set_banner_message=(game_state)=>{
     switch(game_state){
       case GAME_STATES.WIN:
@@ -106,6 +113,7 @@ class App extends React.Component{
     }
   }
 
+  //Update the chosen AI opponent
   set_ai=(new_ai)=> {
     var ai_object = new_ai.value;
     var ai_name = new_ai.name.split(' ');

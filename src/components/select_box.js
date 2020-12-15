@@ -10,23 +10,26 @@ class Select extends React.Component{
         }
     }
 
+    //Close options menu if a click outside the select box is detected
     handleClickOutside = () => {
-        //close options menu if a click outside the select box is detected
         if(this.state.show_options)
             this.setState({show_options: false});
     }
 
+    //Show menu options
     toggle_show_options=()=> {
         var show = !this.state.show_options;
         this.setState({show_options: show});
     }
 
+    //Change the selected menu option
     select_option=(index)=> {
         this.setState({selected_option: index});
         this.props.handleChange(this.props.options[index]);
         this.toggle_show_options();
     }
 
+    //Determin if an option is the currently selected option
     is_selected=(index)=> {
         return(index === this.state.selected_option)
     }

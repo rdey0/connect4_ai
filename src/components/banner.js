@@ -2,6 +2,7 @@ import React from 'react'
 import {CELL_STATES, GAME_STATES} from '../utils/enum.js'
 import Confetti from 'react-dom-confetti';
 
+//config object used to adjust confetti effect
 const config = {
   angle: "360",
   spread: 340,
@@ -16,6 +17,7 @@ const config = {
   colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
 };
 
+//Return the appropriate JSX banner display given the game state
 function BannerContent(props){
     switch(props.gameState){
         case GAME_STATES.WIN:

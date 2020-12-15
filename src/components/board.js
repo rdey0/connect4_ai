@@ -8,6 +8,7 @@ export default class Board extends React.Component{
         super()
     }
 
+    //Make move if valid, otherwise do nothing
     attempt_move=(column)=> {
         if(this.props.player === CELL_STATES.PLAYER1 && is_valid_move(this.props.board, column))
             this.props.makeMove(column);
@@ -15,7 +16,6 @@ export default class Board extends React.Component{
 
     render(){
         return (
-            
             <div className='board-container'>
                 {
                     transpose(this.props.board).map((column, index)=>{
@@ -25,7 +25,6 @@ export default class Board extends React.Component{
                     })
                 }
             </div>
-            
         );
     }  
 }

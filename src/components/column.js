@@ -1,6 +1,6 @@
 import React from 'react'
 import Cell from './cell.js'
-
+// Check if column is leftmost or rightmost and add appropriate style
 function get_col_class(col, num_cols){
     if(col === 0)
         return ' leftmost-column';
@@ -9,6 +9,7 @@ function get_col_class(col, num_cols){
     return ''
 }
 
+//Check if a cell is in the winning move
 function get_cell_class(row, col, winning_moves){
     for(var i = 0; i < winning_moves.length; ++i){
         var[curr_row, curr_col] = winning_moves[i];
