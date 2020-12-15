@@ -1,6 +1,10 @@
 import {CELL_STATES} from '../utils/enum.js'
 import AiModule from './ai_module.js'
-
+/*
+ * Like the name implies RandomAi makes moves randomly. RandomAi
+ * will however act deliberately if it senses that itself or the 
+ * player can win within the next move
+ */
 export default class RandomAi extends AiModule{
 
     get_next_move(board) {
