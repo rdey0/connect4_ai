@@ -1,7 +1,12 @@
 import {CELL_STATES, GAME_STATES} from '../utils/enum.js'
 import {get_game_state} from '../utils/helper.js'
 import AiModule from './ai_module.js'
-
+/*
+ * Minimax exhaustively searches all board states n moves ahead of the 
+ * current board state and then evaluates them based on a heuristic 
+ * (essentially a metric of how favorable the board state is). Minimax 
+ * seeks to minimize it's potential loss and maximize it's potential gain.
+ */
 export default class MinimaxAi extends AiModule{
     constructor(player_number, num_to_win, timeout, depth) {
         super(player_number, num_to_win, timeout);
@@ -28,7 +33,7 @@ export default class MinimaxAi extends AiModule{
             if(this.is_winning_move(i, opponent))
                 return i;  
         }
-        
+
         for(var i=0; i < this.board[0].length && !this.is_timeout(start_time); ++i){
             if(this.can_make_move(i)){
                 var[row, col] = this.make_move(i, this.player_num);
